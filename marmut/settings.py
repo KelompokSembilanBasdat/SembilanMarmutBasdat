@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+from os import getenv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -76,8 +78,15 @@ WSGI_APPLICATION = 'marmut.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': getenv('marmut9'),
+        'USER': getenv('marmut9_owner'),
+        'PASSWORD': getenv('G9zXhsbFf2Or'),
+        'HOST': getenv('ep-tight-flower-a1f9kcm1.ap-southeast-1.aws.neon.tech'),
+        'PORT': getenv('PGPORT', 5432),
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
 }
 

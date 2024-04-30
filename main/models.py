@@ -16,8 +16,6 @@ class Paket(models.Model):
     jenis = models.CharField(max_length=50, primary_key=True)
     harga = models.IntegerField()
 
-
-
 class Transaction(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     jenis_paket = models.ForeignKey(Paket, on_delete=models.CASCADE)
