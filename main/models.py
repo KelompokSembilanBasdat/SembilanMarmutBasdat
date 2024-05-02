@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from uuid import uuid4
 
@@ -103,3 +104,65 @@ class SongwriterWriteSong(models.Model):
 
     class Meta:
         unique_together = ('id_songwriter', 'id_song')
+
+
+class DownloadedSong(models.Model):
+    id_song = models.OneToOneField(Song, on_delete=models.CASCADE, primary_key=True)
+    email_downloader = models.ForeignKey(Premium, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('id_song', 'email_downloader')
+
+
+class Playlist(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+class Chart(models.Model):
+    tipe = models.CharField(max_length=50, primary_key=True)
+    id_playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE)
+
+class UserPlaylist(models.Model):
+    email_pembuat = models.ForeignKey(Akun, on_delete=models.CASCADE, db_column='email_pembuat')
+    id_user_playlist = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    judul = models.CharField(max_length=100, null=False)
+    deskripsi = models.CharField(max_length=500, null=False)
+    jumlah_lagu = models.IntegerField(null=False)
+    tanggal_dibuat = models.DateField(null=False)
+    id_playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE)
+    total_durasi = models.IntegerField(default=0, null=False)
+
+    class Meta:
+        unique_together = ('email_pembuat', 'id_user_playlist')
+
+class Royalti(models.Model):
+    id_pemilik_hak_cipta = models.OneToOneField(PemilikHakCipta, on_delete=models.CASCADE, primary_key=True)
+    id_song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    jumlah = models.IntegerField(null=False)
+
+    class Meta:
+        unique_together = ('id_pemilik_hak_cipta', 'id_song')
+
+
+class AkunPlayUserPlaylist(models.Model):
+    email_pemain = models.ForeignKey(Akun, on_delete=models.CASCADE, db_column='email_pemain')
+    id_user_playlist = models.ForeignKey(UserPlaylist, on_delete=models.CASCADE)
+    email_pembuat = models.ForeignKey(Akun, on_delete=models.CASCADE, related_name='playlist_creator')
+    waktu = models.DateTimeField(primary_key=True)
+
+    class Meta:
+        unique_together = ('email_pemain', 'id_user_playlist', 'waktu')
+
+class AkunPlaySong(models.Model):
+    email_pemain = models.ForeignKey(Akun, on_delete=models.CASCADE, db_column='email_pemain')
+    id_song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    waktu = models.DateTimeField(primary_key=True)
+
+    class Meta:
+        unique_together = ('email_pemain', 'id_song', 'waktu')
+
+class PlaylistSong(models.Model):
+    id_playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE)
+    id_song = models.ForeignKey(Song, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('id_playlist', 'id_song')
