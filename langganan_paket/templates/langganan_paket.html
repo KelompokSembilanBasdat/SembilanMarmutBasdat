@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Paket Langganan</title>
+    <style>
+        body {
+            background-color: red;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 80%;
+            background-color: white;
+            color: black;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Langganan Paket</h1>
+    <table>
+        <tr>
+            <th colspan="3">Langganan Paket</th>
+        </tr>
+        <tr>
+            <th>Jenis</th>
+            <th>Harga</th>
+            <th>Action</th>
+        </tr>
+        {% for paket in pakets %}
+        <tr>
+            <td>{{ paket.jenis }}</td>
+            <td>Rp{{ paket.harga }}</td>
+            <td>
+                <form action="{% url 'pembayaran' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="jenis" value="{{ paket.jenis }}">
+                    <input type="hidden" name="harga" value="{{ paket.harga }}">
+                    <button type="submit">Berlangganan</button>
+                </form>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">No paket available.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

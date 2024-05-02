@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Downloaded Songs</title>
+    <style>
+        body {
+            background-color: red;
+            color: black;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin-top: 20px;
+            color: white;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: white;
+            color: black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black;
+        }
+        img {
+            width: 100px;
+            height: auto;
+        }
+        button {
+            padding: 5px 10px;
+            margin: 5px;
+            background-color: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        .btn-lihat {
+            background-color: green;
+        }
+        .btn-hapus {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Downloaded Songs</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Judul Lagu</th>
+                <th>Oleh</th>
+                <th>Tanggal Download</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+ 
+            <tr>
+                <td>33x</td>
+                <td>Perunggu</td>
+                <td>2024-04-01</td>
+                <td>
+                    <button class="btn-lihat" onclick="alert('Detail lagu');">Lihat</button>
+                    <button class="btn-hapus" onclick="alert('Menghapus lagu dari library Ada');">Hapus</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Kuning</td>
+                <td>Rumah Sakit</td>
+                <td>2024-03-15</td>
+                <td>
+                    <button class="btn-lihat" onclick="alert('Detail lagu');">Lihat</button>
+                    <button class="btn-hapus" onclick="alert('Menghapus lagu dari library Ada');">Hapus</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Kisah Dari Selatan Jakarta</td>
+                <td>White Shoes and The Couples Company</td>
+                <td>2024-05-20</td>
+                <td>
+                    <button class="btn-lihat" onclick="alert('Detail lagu');">Lihat</button>
+                    <button class="btn-hapus" onclick="alert('Menghapus lagu dari library Ada');">Hapus</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Balada Insan Muda</td>
+                <td>Diskoria</td>
+                <td>2024-01-22</td>
+                <td>
+                    <button class="btn-lihat" onclick="alert('Detail lagu');">Lihat</button>
+                    <button class="btn-hapus" onclick="alert('Menghapus lagu dari library Ada');">Hapus</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

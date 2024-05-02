@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pembayaran</title>
+    <style>
+        body {
+            background-color: red;
+            color: red;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .payment-container {
+            background-color: white; 
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            color: black;
+            text-align: center;
+            width: 300px; 
+        }
+        h1 {
+            color: red; 
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label, select, button {
+            margin-bottom: 10px; 
+        }
+        button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <h1>Pembayaran</h1>
+        <p>Jenis Paket: {{ jenis }}</p>
+        <p>Harga: Rp{{ harga }}</p>
+        <form action="{% url 'pembayaran' %}" method="post">
+            {% csrf_token %}
+            <label for="metode">Metode Pembayaran:</label>
+            <select id="metode" name="metode">
+                {% for metode in metode_pembayaran %}
+                <option value="{{ metode }}">{{ metode }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Bayar Sekarang</button>
+        </form>
+    </div>
+</body>
+</html>

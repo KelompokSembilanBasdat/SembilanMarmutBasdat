@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'main',
     'django.contrib.staticfiles',
+    'langganan_paket',
+    'downloaded_song',
 ]
 
 MIDDLEWARE = [
