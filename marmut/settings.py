@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'langganan_paket',
     'downloaded_song',
+    'fitur_ijo',
 ]
 
 MIDDLEWARE = [

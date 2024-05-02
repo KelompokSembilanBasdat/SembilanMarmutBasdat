@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Playlist Detail - Marmut</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0-compat/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+    <div class="flex justify-center items-center min-h-screen">
+        <div class="w-full max-w-5xl mx-auto p-6 bg-gray-800 rounded-xl shadow-xl">
+            <h2 class="text-4xl font-bold mb-6 text-center">User Playlist Detail</h2>
+
+            <div class="space-y-4">
+                <h3 class="text-xl font-semibold">Judul: Playlist1</h3>
+                <h3 class="text-xl font-semibold">Pembuat: Pembuat1</h3>
+                <h3 class="text-xl font-semibold">Jumlah Lagu: 12</h3>
+                <h3 class="text-xl font-semibold">Total Durasi: 8 jam 20 menit</h3>
+                <h3 class="text-xl font-semibold">Tanggal Dibuat: 18/03/24</h3>
+                <h3 class="text-xl font-semibold">Deskripsi: Lorem Ipsum ...</h3>
+
+                <div class="flex gap-4">
+                    <button type="button" class="flex-1 bg-purple-700 hover:bg-purple-800 py-3 rounded-lg font-bold text-center">Shuffle Play</button>
+                    <button type="button" class="flex-1 bg-purple-700 hover:bg-purple-800 py-3 rounded-lg font-bold text-center">Kembali</button>
+                    <button type="button" class="flex-1 bg-purple-700 hover:bg-purple-800 py-3 rounded-lg font-bold text-center">Tambah Lagu</button>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold mt-8 mb-4">DAFTAR LAGU</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-200">
+                    <thead class="text-xs text-gray-400 uppercase bg-gray-700">
+                        <tr>
+                            <th class="py-3 px-6">Judul Lagu</th>
+                            <th class="py-3 px-6">Oleh</th>
+                            <th class="py-3 px-6">Durasi</th>
+                            <th class="py-3 px-6">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-gray-600">
+                        <tr>
+                            <td class="py-3 px-6">Song1</td>
+                            <td class="py-3 px-6">Artist1</td>
+                            <td class="py-3 px-6">2 menit</td>
+                            <td class="py-3 px-6">
+                                <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg">Lihat</button>
+                                <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-lg">Play</button>
+                                <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg">Hapus</button>
+                            </td>
+                        </tr>
+                        <!-- More rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+{% endblock content %}
