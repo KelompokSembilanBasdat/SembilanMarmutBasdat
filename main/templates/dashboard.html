@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        body {
+            background-color: #eee;
+            font-family: 'Arial', sans-serif; /* Using a more readable font */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center aligns all content vertically */
+            justify-content: center; /* Helps with centering if needed */
+        }
+        h1, h2 {
+            color: #333; /* Dark grey color for text for better readability */
+        }
+        .profile-info, .table-container {
+            background-color: #fff; /* White background for content areas */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+            padding: 20px; /* Padding inside content areas */
+            margin: 10px; /* Margin around content areas */
+            width: 80%; /* Limiting width */
+            max-width: 960px; /* Maximum width */
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #16bbff;
+        }
+        table {
+            width: 100%; /* Full width tables */
+            border-collapse: collapse; /* Collapses border to look cleaner */
+        }
+        ul {
+            list-style: none; /* Removes bullets */
+            padding: 0;
+        }
+        ul li {
+            padding: 8px; /* Padding for list items */
+        }
+    </style>
+</head>
+<h1>Dashboard</h1>
+<body>
+    <div class="profile-info">
+        <h1>Welcome, Marselino</h1>
+        <ul>
+            <li>Kota Asal: Brussels, Belgia</li>
+            <li>Gender: Laki-laki</li>
+            <li>Tempat lahir: Depok, Indonesia</li>
+            <li>Tanggal lahir: 27 Mei 2002</li>
+            <li>Role: Artist</li>
+        </ul>
+    </div>
+
+    <div class="table-container">
+        <h2>Your Songs</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Album</th>
+                    <th>Total Plays</th>
+                    <th>Total Downloads</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Berdansalah, Karir Tak Ada Artinya</td>
+                    <td>Greatest Hits</td>
+                    <td>15000</td>
+                    <td>300</td>
+                </tr>
+                <tr>
+                    <td>Lover</td>
+                    <td>Love Songs</td>
+                    <td>25000</td>
+                    <td>500</td>
+                </tr>
+                <tr>
+                    <td>Biar</td>
+                    <td>Purnama</td>
+                    <td>500000</td>
+                    <td>20000</td>
+                </tr>
+                <tr>
+                    <td>Doa 1</td>
+                    <td>Dosa, Kota, Dan Kenangan</td>
+                    <td>300000</td>
+                    <td>15000</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

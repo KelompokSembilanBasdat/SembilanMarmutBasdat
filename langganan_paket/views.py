@@ -1,11 +1,6 @@
 from django.shortcuts import render
-from main.models import Paket
+from main.models import data_from_db
 from django.views.decorators.http import require_http_methods
-
-# Create your views here.
-def show_paket(request):
-    pakets = Paket.objects.all()
-    return render(request, 'langganan_paket.html', {'pakets': pakets})
 
 @require_http_methods(["POST"])
 def pembayaran(request):
@@ -17,3 +12,13 @@ def pembayaran(request):
         'harga': harga,
         'metode_pembayaran': metode_pembayaran
     })
+
+
+def show_paket(request):
+    conn = data_from_db()
+    cur = conn.cursor()
+    cur.execute("SELECT jenis, harga FROM paket")
+    paket = cur.fetchall()
+    cur.close()
+    conn.close()
+    return render(request, 'langganan_paket.html',  {'paket': paket})

@@ -38,11 +38,20 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'main',
     'django.contrib.staticfiles',
-    'langganan_paket',
+    'authentication',
+    'cek_royalti',
     'downloaded_song',
-    'fitur_ijo',
+    'kelola_album_dan_song',
+    'kelola_playlist',
+    'kelola_podcast',
+    'langganan_paket',
+    'main',
+    'melihat_chart',
+    'play_podcast',
+    'play_song',
+    'play_user_playlist',
+    'searchbar',
 ]
 
 MIDDLEWARE = [
@@ -75,24 +84,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'marmut.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': getenv('marmut9'),
-        'USER': getenv('marmut9_owner'),
-        'PASSWORD': getenv('G9zXhsbFf2Or'),
-        'HOST': getenv('ep-tight-flower-a1f9kcm1.ap-southeast-1.aws.neon.tech'),
-        'PORT': getenv('PGPORT', 5432),
+        'NAME': getenv('DB_NAME', 'marmut9'),
+        'USER': getenv('DB_USER', 'marmut9_owner'),
+        'PASSWORD': getenv('DB_PASSWORD', 'G9zXhsbFf2Or'),
+        'HOST': getenv('DB_HOST', 'ep-tight-flower-a1f9kcm1.ap-southeast-1.aws.neon.tech'),
+        'PORT': getenv('DB_PORT', '5432'),
         'OPTIONS': {
             'sslmode': 'require',
         },
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

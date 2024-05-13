@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class FiturIjoConfig(AppConfig):
+class PlaySongConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'fitur_ijo'
+    name = 'play_song'
