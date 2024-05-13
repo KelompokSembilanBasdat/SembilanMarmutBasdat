@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from main.models import data_from_db
+from utils.db import data_from_db
 
 def song_list(request):
     conn = data_from_db()
