@@ -64,15 +64,15 @@
             <th>Harga</th>
             <th>Action</th>
         </tr>
-        {% for paket in pakets %}
+        {% for jenis, harga in paket %}
         <tr>
-            <td>{{ paket.jenis }}</td>
-            <td>Rp{{ paket.harga }}</td>
+            <td>{{ jenis }}</td>
+            <td>Rp{{ harga }}</td>
             <td>
                 <form action="{% url 'pembayaran' %}" method="post">
                     {% csrf_token %}
-                    <input type="hidden" name="jenis" value="{{ paket.jenis }}">
-                    <input type="hidden" name="harga" value="{{ paket.harga }}">
+                    <input type="hidden" name="jenis" value="{{ jenis }}">
+                    <input type="hidden" name="harga" value="{{ harga }}">
                     <button type="submit">Berlangganan</button>
                 </form>
             </td>
