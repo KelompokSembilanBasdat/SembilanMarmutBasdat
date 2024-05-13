@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from main.models import data_from_db
+from utils.db import data_from_db
 from django.views.decorators.http import require_http_methods
 
 @require_http_methods(["POST"])
