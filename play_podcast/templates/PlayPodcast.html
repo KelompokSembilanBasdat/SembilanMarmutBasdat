@@ -13,84 +13,77 @@
 </head>
 
 <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .Title {
-            text-align: center;
-            margin-top: 50px;
-        }
-        h1 {
-            font-weight: normal;
-        }
-        h2 {
-            margin-top: 20px;
-        }
-        .input-box {
-            margin-top: 0; 
-            width: 300px;
-            height: 30px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-        .select-box {
-            margin-top: 0;
-            width: 300px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            box-sizing: border-box;
-            background-color: white; 
-        }
-        
-        .Play {
-            margin-top: 0;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th, td {
-            border: 1px solid black;
-            text-align: left;
-            padding: 8px;
-        }
-
-        th {
-            background-color: white;
-        }
-
-        .back-button {
-            background-color: blue;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        a.hapus {
-            color: red;
-        }
-
-        .button-wrapper {
-            display: flex;
-            justify-content: center; 
-            margin-top: 20px;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .Title {
+        text-align: center;
+        margin-top: 50px;
+    }
+    h1 {
+        font-weight: normal;
+    }
+    h2 {
+        margin-top: 20px;
+    }
+    .input-box {
+        margin-top: 0;
+        width: 300px;
+        height: 30px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+    .select-box {
+        margin-top: 0;
+        width: 300px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+        background-color: white;
+    }
+    .Play {
+        margin-top: 0;
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid black;
+        text-align: left;
+        padding: 8px;
+    }
+    th {
+        background-color: white;
+    }
+    .back-button {
+        background-color: blue;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    a.hapus {
+        color: red;
+    }
+    .button-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
 </style>
 
 <body>
@@ -153,15 +146,16 @@
     </div>
 
     <div class="Detail">
-        <p style="margin-bottom: 0;">Commercial country expert huge</p>
+        <p style="margin-bottom: 0;">{{ podcast_details.judul }}</p>
         <p style="margin: 0; padding-top: 0;">Genre(s):</p>
-        <p style="margin: 0; padding-top: 0;">- Comedy</p>
+        {% for genre in podcast_details.genres %}
+        <p style="margin: 0; padding-top: 0;">- {{ genre }}</p>
+        {% endfor %}
         <p style="margin: 0; padding-top: 0;">Podcaster:</p>
-        <p style="margin: 0; padding-top: 0;">- Nicholas Garcia</p>
-        <p style="margin: 0; padding-top: 0;">- Heather Foster</p>
-        <p style="margin: 0; padding-top: 0;">Total Durasi: 3 jam 0 menit</p>
-        <p style="margin: 0; padding-top: 0;">Tanggal Rilis: 01/04/2022</p>
-        <p style="margin: 0; padding-top: 0;">Tahun: 2022</p>
+        <p style="margin: 0; padding-top: 0;">- {{ podcast_details.podcaster }}</p>
+        <p style="margin: 0; padding-top: 0;">Total Durasi: {{ podcast_details.total_durasi }}</p>
+        <p style="margin: 0; padding-top: 0;">Tanggal Rilis: {{ podcast_details.tanggal_rilis }}</p>
+        <p style="margin: 0; padding-top: 0;">Tahun: {{ podcast_details.tahun }}</p>
     </div>
 
     <div class="button-wrapper">
@@ -170,7 +164,6 @@
 
     <br>
     <br>
-
 
     <table>
         <thead>
@@ -185,18 +178,14 @@
             </tr>
         </thead>
         <tbody>
+            {% for episode in episode_list %}
             <tr>
-                <td>Some Experience</td>
-                <td>Write yes good successful board. End institution market ago. She program yard large sport poor show</td>
-                <td>2 jam 25 menit</td>
-                <td>23/04/2024</td>
+                <td>{{ episode.0 }}</td>
+                <td>{{ episode.1 }}</td>
+                <td>{{ episode.2 }}</td>
+                <td>{{ episode.3 }}</td>
             </tr>
-            <tr>
-                <td>Small poor</td>
-                <td>Learn industry stop control including cultural score positive. Up century task son. Economy individual dinner herself. None that arrive crime.</td>
-                <td>2 jam 7 menit</td>
-                <td>22/04/2024</td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </body>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,59 +9,10 @@
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <title>Podcast Episode Management</title>
+    <title>Chart Detail</title>
 </head>
 
 <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .Title {
-            text-align: center;
-            margin-top: 50px;
-        }
-        h1 {
-            font-weight: normal;
-        }
-        h2 {
-            margin-top: 20px;
-        }
-        .input-box {
-            margin-top: 0; 
-            width: 300px;
-            height: 30px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-        .select-box {
-            margin-top: 0;
-            width: 300px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            box-sizing: border-box;
-            background-color: white; 
-        }
-        .submit-button {
-            margin-top: 0;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            background-color: blue;
-            color: white;
-            cursor: pointer;
-        }
-        .Create {
-            margin-top: 0;
-        }
-
         table {
             border-collapse: collapse;
             width: 100%;
@@ -92,8 +42,9 @@
             border-radius: 5px;
         }
 
-        a.hapus {
-            color: red;
+        /* CSS untuk button Kembali */
+        .button-container {
+            text-align: center;
         }
 </style>
 
@@ -150,56 +101,43 @@
     </nav>
     <!-- navbar ends -->
 
-    <div class="Title">
-        <h1><strong>KELOLA PODCAST</strong></h1>
+    <div class="position-relative overflow-hidden p-1 p-md-3 m-md-3 text-center bg-body-tertiary">
+        <div class="col-md-12 p-lg-2 mx-auto my-5">
+            <h1 class="display-4 fw-bold">Chart Detail</h1>
+        </div>
     </div>
-    <div class="Create">
-        <h2>Create Episode</h2>
-        <p style="margin-bottom: 0;">Podcast: Podcast1</p>
-        <p style="margin: 0; padding-top: 0;">Judul</p>
-        <input type="text" class="input-box" placeholder="Masukkan judul episode">
-        <p style="margin: 0; padding-top: 0;">Deskripsi</p>
-        <input type="text" class="input-box" placeholder="Masukkan deskripsi">
-        <br>
-        <button class="submit-button">Submit</button>
-    </div>
-
-    <br>
-    <br>
-
 
     <table>
         <thead>
             <tr>
-                <th style="text-align: center" colspan="5">DAFTAR EPISODE PADA PODCAST1</th>
+                <td colspan="5">
+                    <p style="text-align: center; color: black;">Tipe: Weekly Top 20</p>
+                    <div class="button-container">
+                        <button class="button blue-button">Kembali</button>
+                    </div>
+                </td>
             </tr>
             <tr>
-                <th style="text-align: center">Judul</th>
-                <th style="text-align: center">Deskripsi</th>
-                <th style="text-align: center">Durasi</th>
-                <th style="text-align: center">Tanggal</th>
+                <th style="text-align: center" colspan="5">DAFTAR LAGU</th>
+            </tr>
+            <tr>
+                <th style="text-align: center">Judul Lagu</th>
+                <th style="text-align: center">Oleh</th>
+                <th style="text-align: center">Tanggal Rilis</th>
+                <th style="text-align: center">Total Plays</th>
                 <th style="text-align: center">Actions</th>
             </tr>
         </thead>
         <tbody>
+            {% for song in lagu_list %}
             <tr>
-                <td>Some Experience</td>
-                <td>Write yes good successful board. End institution market ago. She program yard large sport poor show</td>
-                <td>2 jam 25 menit</td>
-                <td>23/04/2024</td>
-                <td>
-                    <a href="#" class="hapus">Hapus</a>
-                </td>
+                <td>{{ song.judul }}</td>
+                <td>{{ song.artis }}</td>
+                <td>{{ song.tanggal_rilis }}</td>
+                <td>{{ song.total_play }}</td>
+                <td><a href="#">Lihat</a></td>
             </tr>
-            <tr>
-                <td>Small poor</td>
-                <td>Learn industry stop control including cultural score positive. Up century task son. Economy individual dinner herself. None that arrive crime.</td>
-                <td>2 jam 7 menit</td>
-                <td>22/04/2024</td>
-                <td>
-                    <a href="#" class="hapus">Hapus</a>
-                </td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </body>

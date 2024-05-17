@@ -111,7 +111,7 @@
         <thead>
             <tr>
                 <td colspan="5">
-                    <p style="text-align: center; color: black;">Tipe: Daily Top 20</p>
+                    <p style="text-align: center; color: black;">Tipe: Monthly Top 20</p>
                     <div class="button-container">
                         <button class="button blue-button">Kembali</button>
                     </div>
@@ -129,20 +129,15 @@
             </tr>
         </thead>
         <tbody>
+            {% for song in lagu_list %}
             <tr>
-                <td>Space Where</td>
-                <td>Kara Moore</td>
-                <td>02/03/2016</td>
-                <td>79949770</td>
+                <td>{{ song.judul }}</td>
+                <td>{{ song.artis }}</td>
+                <td>{{ song.tanggal_rilis }}</td>
+                <td>{{ song.total_play }}</td>
                 <td><a href="#">Lihat</a></td>
             </tr>
-            <tr>
-                <td>Subject Around</td>
-                <td>Heather Foster</td>
-                <td>25/08/2019</td>
-                <td>35316439</td>
-                <td><a href="#">Lihat</a></td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </body>
