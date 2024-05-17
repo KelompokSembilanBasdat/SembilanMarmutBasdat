@@ -1,20 +1,28 @@
 from django.shortcuts import render
+from utils.db import data_from_db
 
 # Create your views here.
-def add_song(request):
-    return render(request, 'add_lagu.html')
-
-def kelola_album_song_add(request):
-    return render(request, 'kelola_album_song_add.html')
-
-def kelola_album_song_view(request):
-    return render(request, 'kelola_album_song_view.html')
-
 def kelola_album_song(request):
-    return render(request, 'kelola_album_song.html')
+    conn = data_from_db()
+    cur = conn.cursor()
+    query = """
+        SELECT id_konten, id_artist, total_play, total_download
+        FROM song
+    """
+    cur.execute(query)
+    albums = cur.fetchall()
+    cur.close()
+    conn.close()
+    return render(request, 'kelola_album_song', {'albums': albums})
 
-def kelola_album_view(request):
-    return render(request, 'kelola_album_view.html')
+def add_song(request):
+    # Your logic for adding a song goes here
+    return render(request, 'add_song.html') 
 
-def kelola_album(request):
-    return render(request, 'kelola_album.html')
+def add_album(request):
+    # Your logic for adding an album goes here
+    return render(request, 'add_album.html')
+
+def view_album(request):
+    # Your logic for viewing albums goes here
+    return render(request, 'view_album.html')

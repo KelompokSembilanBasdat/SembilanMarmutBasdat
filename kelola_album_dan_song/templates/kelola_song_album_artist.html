@@ -70,15 +70,6 @@
                         <a class="nav-link" href="#">Cek Royalti</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Lihat Chart</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Play Podcast</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Kelola Podcast</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#">Logout</a>
                     </li>
                 </ul>
@@ -92,33 +83,45 @@
     <!-- navbar ends -->
     <div class="position-relative overflow-hidden p-1 p-md-3 m-md-3 text-center bg-body-tertiary">
         <div class="col-md-12 p-lg-2 mx-auto my-5">
-            <h2 class="text-center">Daftar Lagu pada</h2>
-            <h1 class="display-4 fw-bold">Universal encompassing challenge</h1>
+            <h1 class="display-4 fw-bold">Kelola Album & Song</h1>
         </div>
     </div>
+
     <div class="container">
+        <div class="py-2">
+            <form action="{% url 'add_album' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Add Album</button>
+              </form>
+        </div>
         <div class="py-4">
+            <div class="pb-3">
+                <h2 class="text-center">List Album</h2>
+            </div>
             <div class="tableFixHead">
                 <table class="table table-striped ">
                     <thead>
                         <tr class="text-center ">
                             <th>Judul</th>
-                            <th>Durasi</th>
-                            <th>Total Play</th>
-                            <th>Total Download</th>
+                            <th>Label</th>
+                            <th>Jumlah Lagu</th>
+                            <th>Total Durasi</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Citizen population consider thus purpose</td>
-                            <td>35</td>
-                            <td>48721122</td>
-                            <td>34808853</td>
+                            <td>User-centric scalable concept</td>
+                            <td>Scott Inc</td>
+                            <td>11</td>
+                            <td>1031 menit</td>
                             <td>
                                 <div class="text-center ">
                                     <div class="p-1">
-                                        <a href="#" class="link-primary">Lihat Detail</a>
+                                        <a href="#" class="link-primary">Lihat daftar lagu</a>
+                                    </div>
+                                    <div class="p-1">
+                                        <a href="#" class="link-primary">Tambah lagu</a>
                                     </div>
                                     <div class="p-1">
                                         <a href="#" class="link-danger">Hapus</a>
@@ -127,14 +130,17 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>State with soldier interest address"</td>
-                            <td>163</td>
-                            <td>54648866</td>
-                            <td>43737189</td>
+                            <td>Synchronized holistic Internet solution</td>
+                            <td>Perez, Love and Chavez</td>
+                            <td>8</td>
+                            <td>637 menit</td>
                             <td>
                                 <div class="text-center ">
                                     <div class="p-1">
-                                        <a href="#" class="link-primary">Lihat Detail</a>
+                                        <a href="#" class="link-primary">Lihat daftar lagu</a>
+                                    </div>
+                                    <div class="p-1">
+                                        <a href="#" class="link-primary">Tambah lagu</a>
                                     </div>
                                     <div class="p-1">
                                         <a href="#" class="link-danger">Hapus</a>
@@ -143,14 +149,17 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Space where</td>
-                            <td>161</td>
-                            <td>79949770</td>
-                            <td>43565037</td>
+                            <td>Profit-focused logistical data-warehouse</td>
+                            <td>Shaw-Bennett</td>
+                            <td>10</td>
+                            <td>1087 menit</td>
                             <td>
                                 <div class="text-center ">
                                     <div class="p-1">
-                                        <a href="#" class="link-primary">Lihat Detail</a>
+                                        <a href="#" class="link-primary">Lihat daftar lagu</a>
+                                    </div>
+                                    <div class="p-1">
+                                        <a href="#" class="link-primary">Tambah lagu</a>
                                     </div>
                                     <div class="p-1">
                                         <a href="#" class="link-danger">Hapus</a>
@@ -159,14 +168,17 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Subject around</td>
-                            <td>155</td>
-                            <td>35316439</td>
-                            <td>14397765</td>
+                            <td>Organic global standardization</td>
+                            <td>Lawrence and Sons</td>
+                            <td>8</td>
+                            <td>721 menit</td>
                             <td>
                                 <div class="text-center ">
                                     <div class="p-1">
-                                        <a href="#" class="link-primary">Lihat Detail</a>
+                                        <a href="#" class="link-primary">Lihat daftar lagu</a>
+                                    </div>
+                                    <div class="p-1">
+                                        <a href="#" class="link-primary">Tambah lagu</a>
                                     </div>
                                     <div class="p-1">
                                         <a href="#" class="link-danger">Hapus</a>
@@ -175,14 +187,17 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>...</td>
-                            <td>...</td>
-                            <td>...</td>
-                            <td>...</td>
+                            <td>Universal encompassing challenge</td>
+                            <td>Carson Inc</td>
+                            <td>13</td>
+                            <td>1378 menit</td>
                             <td>
                                 <div class="text-center ">
                                     <div class="p-1">
-                                        <a href="#" class="link-primary">Lihat Detail</a>
+                                        <a href="#" class="link-primary">Lihat daftar lagu</a>
+                                    </div>
+                                    <div class="p-1">
+                                        <a href="#" class="link-primary">Tambah lagu</a>
                                     </div>
                                     <div class="p-1">
                                         <a href="#" class="link-danger">Hapus</a>
