@@ -2,12 +2,22 @@ import psycopg2
 from django.conf import settings
 
 def data_from_db():
-    db_config = settings.DATABASES['default']
     return psycopg2.connect(
-        dbname=db_config['NAME'],
-        user=db_config['USER'],
-        password=db_config['PASSWORD'],
-        host=db_config['HOST'],
-        port=db_config['PORT'],
-        sslmode=db_config['OPTIONS']['sslmode']
+        dbname=settings.DATABASES['default']['NAME'],
+        user=settings.DATABASES['default']['USER'],
+        password=settings.DATABASES['default']['PASSWORD'],
+        host=settings.DATABASES['default']['HOST'],
+        port=settings.DATABASES['default']['PORT']
     )
+
+def query(sql_query, params=None):
+    con = data_from_db()
+    cur = con.cursor()
+    if params:
+        cur.execute(sql_query, params)
+    else:
+        cur.execute(sql_query)
+    results = cur.fetchall()
+    cur.close()
+    con.close()
+    return results

@@ -1,7 +1,9 @@
-from django.urls import path
-from searchbar.views import *
+# searchbar/urls.py
 
+from django.urls import path
+from searchbar.views import search_bar
 
 urlpatterns = [
-    path('', show_hasil_searchbar, name='show_hasil_searchbar'),
+    path('', search_bar, name='search_bar'),
+    path('search_results/', search_bar, name='search_results'),
 ]
