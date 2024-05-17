@@ -1,6 +1,6 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
-{% block title %}Dashboard{% endblock %} 
+{% block title %}Dashboard{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -9,16 +9,22 @@
       <h2>Dashboard</h2>
       <p><strong>Nama:</strong> {{ name }}</p>
       <p><strong>Email:</strong> {{ email }}</p>
+      {% if subscription_status %}
       <p><strong>Status Langganan:</strong> {{ subscription_status }}</p>
+      {% endif %}
       {% if contact %}
       <p><strong>Kontak:</strong> {{ contact }}</p>
-      {% endif %} {% if gender %}
+      {% endif %}
+      {% if gender %}
       <p><strong>Gender:</strong> {{ gender }}</p>
-      {% endif %} {% if birthplace %}
+      {% endif %}
+      {% if birthplace %}
       <p><strong>Tempat Lahir:</strong> {{ birthplace }}</p>
-      {% endif %} {% if birthdate %}
+      {% endif %}
+      {% if birthdate %}
       <p><strong>Tanggal Lahir:</strong> {{ birthdate }}</p>
-      {% endif %} {% if hometown %}
+      {% endif %}
+      {% if hometown %}
       <p><strong>Kota Asal:</strong> {{ hometown }}</p>
       {% endif %}
       <p><strong>Role:</strong> {{ role|join:", " }}</p>
@@ -35,7 +41,10 @@
       </ul>
       {% else %}
       <p>Belum Memiliki Playlist</p>
-      {% endif %} {% endif %} {% if 'Artist' in role or 'Songwriter' in role %}
+      {% endif %}
+      {% endif %}
+
+      {% if 'Artist' in role or 'Songwriter' in role %}
       <h3>Daftar Lagu</h3>
       {% if songs %}
       <ul>
@@ -45,7 +54,10 @@
       </ul>
       {% else %}
       <p>Belum Memiliki Lagu</p>
-      {% endif %} {% endif %} {% if 'Podcaster' in role %}
+      {% endif %}
+      {% endif %}
+
+      {% if 'Podcaster' in role %}
       <h3>Daftar Podcast</h3>
       {% if podcasts %}
       <ul>
@@ -55,7 +67,10 @@
       </ul>
       {% else %}
       <p>Belum Memiliki Podcast</p>
-      {% endif %} {% endif %} {% if 'Label' in role %}
+      {% endif %}
+      {% endif %}
+
+      {% if 'Label' in role %}
       <h3>Daftar Album</h3>
       {% if albums %}
       <ul>
@@ -65,11 +80,14 @@
       </ul>
       {% else %}
       <p>Belum Memproduksi Album</p>
-      {% endif %} {% endif %}
+      {% endif %}
+      {% endif %}
     </div>
   </div>
 </div>
-{% endblock %} {% block css %}
+{% endblock %}
+
+{% block css %}
 <style>
   body,
   html {
