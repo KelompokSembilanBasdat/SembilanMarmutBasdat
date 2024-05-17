@@ -2,7 +2,7 @@ from django.shortcuts import render
 from utils.db import data_from_db
 
 # Create your views here.
-def kelola_album_song(request):
+def kelola_album_song_artis(request):
     conn = data_from_db()
     cur = conn.cursor()
     query = """
