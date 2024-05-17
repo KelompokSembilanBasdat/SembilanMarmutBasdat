@@ -1,0 +1,72 @@
+<header>
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Marmut - 9</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% if not request.session.email %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register_option' %}">Register</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                    </li>
+                    {% if 'Pengguna Biasa' in request.session.roles or 'Artist' in request.session.roles or 'Songwriter' in request.session.roles or 'Podcaster' in request.session.roles %}
+                    <li class="nav-item">
+                        {% comment %} <a class="nav-link" href="{% url 'melihat_chart' %}">Chart</a> {% endcomment %}
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'search_bar' %}">Search Bar</a>
+                    </li>
+                    <li class="nav-item">
+                        {% comment %} <a class="nav-link" href="{% url 'kelola_playlist' %}">Kelola Playlist</a> {% endcomment %}
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'show_paket' %}">Langganan Paket</a>
+                    </li>
+                    {% endif %}
+                    {% if request.session.is_premium %}
+                    <li class="nav-item">
+                        {% comment %} <a class="nav-link" href="{% url 'kelola_downloaded_songs' %}">Kelola Downloaded Songs</a> {% endcomment %}
+                    </li>
+                    {% endif %}
+                    {% if 'Podcaster' in request.session.roles %}
+                    <li class="nav-item">
+                        {% comment %} <a class="nav-link" href="{% url 'kelola_podcast' %}">Kelola Podcast</a> {% endcomment %}
+                    </li>
+                    {% endif %}
+                    {% if 'Artist' in request.session.roles or 'Songwriter' in request.session.roles %}
+                    <li class="nav-item">
+                        {% comment %} <a class="nav-link" href="{% url 'kelola_album_song' %}">Kelola Album & Songs</a> {% endcomment %}
+                    </li>
+                    {% endif %}
+                    {% if 'Label' in request.session.roles %}
+                    <li class="nav-item">
+                        {% comment %} <a class="nav-link" href="{% url 'kelola_album_song' %}">Kelola Album</a> {% endcomment %}
+                    </li>
+                    {% endif %}
+                    {% if 'Artist' in request.session.roles or 'Songwriter' in request.session.roles or 'Label' in request.session.roles %}
+                    <li class="nav-item">
+                        {% comment %} <a class="nav-link" href="{% url 'cek_royalti' %}">Cek Royalti</a> {% endcomment %}
+                    </li>
+                    {% endif %}
+                </ul>
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

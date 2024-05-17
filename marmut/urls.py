@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.urls import include, path
 
-from main.views import main_page
+from authentication.views import login_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', main_page, name='main_page'),
+    path('', login_view, name='login_view'),
+    path('', include('authentication.urls')),
 
     path('cek-royalti/', include('cek_royalti.urls')),
     path('downloaded-song/', include('downloaded_song.urls')),
