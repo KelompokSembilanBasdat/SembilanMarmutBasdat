@@ -1,68 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Pembayaran</title>
-    <style>
-        body {
-            background-color: red;
-            color: red;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .payment-container {
-            background-color: white; 
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            color: black;
-            text-align: center;
-            width: 300px; 
-        }
-        h1 {
-            color: red; 
-            margin-bottom: 20px;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        label, select, button {
-            margin-bottom: 10px; 
-        }
-        button {
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: darkred;
-        }
-    </style>
-</head>
-<body>
-    <div class="payment-container">
+{% extends 'base.html' %}
+
+{% block title %}Pembayaran{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="container payment-container">
         <h1>Pembayaran</h1>
         <p>Jenis Paket: {{ jenis }}</p>
         <p>Harga: Rp{{ harga }}</p>
         <form action="{% url 'pembayaran' %}" method="post">
             {% csrf_token %}
-            <label for="metode">Metode Pembayaran:</label>
-            <select id="metode" name="metode">
-                {% for metode in metode_pembayaran %}
-                <option value="{{ metode }}">{{ metode }}</option>
-                {% endfor %}
-            </select>
+            <div class="form-group">
+                <label for="metode">Metode Pembayaran:</label>
+                <select id="metode" name="metode" class="form-control">
+                    {% for metode in metode_pembayaran %}
+                    <option value="{{ metode }}">{{ metode }}</option>
+                    {% endfor %}
+                </select>
+            </div>
             <button type="submit">Bayar Sekarang</button>
         </form>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}
+
+{% block css %}
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #42BCFF;
+    }
+    .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 56px); /* Subtract the height of the navbar */
+        padding: 20px;
+    }
+    .container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 800px;
+    }
+    h1 {
+        color: #42BCFF;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+    }
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    button {
+        background-color: #42BCFF;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        color: white;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #359FD9;
+    }
+</style>
+{% endblock %}

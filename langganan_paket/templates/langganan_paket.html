@@ -1,87 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Paket Langganan</title>
-    <style>
-        body {
-            background-color: red;
-            color: white;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        h1 {
-            margin-bottom: 20px;
-        }
-        table {
-            width: 80%;
-            background-color: white;
-            color: black;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            transition: background-color 0.3s;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-    <h1>Langganan Paket</h1>
-    <table>
-        <tr>
-            <th colspan="3">Langganan Paket</th>
-        </tr>
-        <tr>
-            <th>Jenis</th>
-            <th>Harga</th>
-            <th>Action</th>
-        </tr>
-        {% for jenis, harga in paket %}
-        <tr>
-            <td>{{ jenis }}</td>
-            <td>Rp{{ harga }}</td>
-            <td>
-                <form action="{% url 'pembayaran' %}" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="jenis" value="{{ jenis }}">
-                    <input type="hidden" name="harga" value="{{ harga }}">
-                    <button type="submit">Berlangganan</button>
-                </form>
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="3">No paket available.</td>
-        </tr>
-        {% endfor %}
-    </table>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Langganan Paket{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="container">
+        <h1>Langganan Paket</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="3">Langganan Paket</th>
+                </tr>
+                <tr>
+                    <th>Jenis</th>
+                    <th>Harga</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for jenis, harga in paket %}
+                <tr>
+                    <td>{{ jenis }}</td>
+                    <td>Rp{{ harga }}</td>
+                    <td>
+                        <form action="{% url 'pembayaran' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="jenis" value="{{ jenis }}">
+                            <input type="hidden" name="harga" value="{{ harga }}">
+                            <button type="submit">Berlangganan</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">No paket available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block css %}
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #42BCFF;
+    }
+    .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 56px); /* Subtract the height of the navbar */
+        padding: 20px;
+    }
+    .container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 800px;
+    }
+    h1 {
+        color: #42BCFF;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+    button {
+        background-color: #42BCFF;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        color: white;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #359FD9;
+    }
+</style>
+{% endblock %}
