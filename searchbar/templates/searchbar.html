@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #42BCFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+        }
+        h1 {
+            color: #42BCFF;
+            text-align: center;
+        }
+        #search-form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        #searchQuery {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #42BCFF;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        #search-form button {
+            background-color: #42BCFF;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
+        }
+        #search-form button:hover {
+            background-color: #359FD9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        #results {
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            $('#search-form').on('submit', function(event) {
+                event.preventDefault();
+                var query = $('#searchQuery').val();
+                $.ajax({
+                    url: '/searchbar/search_results/',
+                    data: {
+                        'search': query
+                    },
+                    success: function(data) {
+                        $('#results').empty();
+                        if (data.results.length > 0) {
+                            var table = '<table><thead><tr><th>Title</th><th>ContentType</th><th>CreatorName</th><th>Actions</th></tr></thead><tbody>';
+                            data.results.forEach(function(result) {
+                                table += '<tr><td>' + result[0] + '</td><td>' + result[1] + '</td><td>' + result[2] + '</td><td><button onclick="redirectToDetail(\'' + result[0] + '\')">Detail</button></td></tr>';
+                            });
+                            table += '</tbody></table>';
+                            $('#results').append(table);
+                        } else {
+                            $('#results').append('<p>No results found.</p>');
+                        }
+                    }
+                });
+            });
+        });
+
+        function redirectToDetail(title) {
+            window.location.href = '/detail/' + encodeURIComponent(title);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Search</h1>
+        <form id="search-form">
+            <input type="text" id="searchQuery" name="search" placeholder="Cari...">
+            <button type="submit">Cari</button>
+        </form>
+        <div id="results"></div>
+    </div>
+</body>
+</html>
