@@ -14,21 +14,38 @@ def login_view(request):
 
         conn = data_from_db()
         cur = conn.cursor()
-        cur.execute(
-            "SELECT * FROM akun WHERE email=%s AND password=%s", (email, password))
+        
+        # Cek di tabel akun
+        cur.execute("SELECT * FROM akun WHERE email=%s AND password=%s", (email, password))
         user = cur.fetchone()
-        cur.close()
-        conn.close()
-
-        if user:
+        
+        if not user:
+            # Cek di tabel label jika tidak ditemukan di tabel akun
+            cur.execute("SELECT * FROM label WHERE email=%s AND password=%s", (email, password))
+            label = cur.fetchone()
+            if label:
+                # Simpan informasi label dalam sesi
+                request.session['email'] = label[2]
+                request.session['roles'] = get_user_roles(label[2])
+                request.session['is_premium'] = False
+                cur.close()
+                conn.close()
+                return redirect('dashboard')
+        else:
             request.session['email'] = user[0]
             request.session['roles'] = get_user_roles(user[0])
             request.session['is_premium'] = user[7]
+            cur.close()
+            conn.close()
             return redirect('dashboard')
-        else:
-            return HttpResponse('Invalid login')
+        
+        cur.close()
+        conn.close()
+        return HttpResponse('Invalid login')
 
     return render(request, 'login.html')
+
+
 
 
 def logout_view(request):
