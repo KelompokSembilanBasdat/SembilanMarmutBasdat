@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from utils.db import data_from_db
 
@@ -9,24 +10,42 @@ def dashboard_view(request):
 
     conn = data_from_db()
     cur = conn.cursor()
+    
+    # Cek apakah pengguna ada di tabel akun
     cur.execute("SELECT * FROM akun WHERE email=%s", (email,))
     user = cur.fetchone()
+    is_label = False
+
+    if not user:
+        # Jika tidak ada di tabel akun, cek di tabel label
+        cur.execute("SELECT * FROM label WHERE email=%s", (email,))
+        user = cur.fetchone()
+        is_label = True if user else False
+
+    if not user:
+        cur.close()
+        conn.close()
+        return HttpResponse('User not found')  # Pengguna tidak ditemukan di kedua tabel
 
     roles = get_user_roles(email)
     request.session['roles'] = roles
-    request.session['is_premium'] = user[7]
+    if is_label:
+        request.session['is_premium'] = None  # Anggap label tidak premium
+    else:
+        request.session['is_premium'] = user[7]  # Set nilai is_premium dari tabel akun
 
-    is_premium = user[7] and roles != ['Pengguna Biasa']
+    # Status langganan Premium hanya jika pengguna memiliki peran dan bukan label
+    is_premium = None if is_label else (request.session['is_premium'] and roles != ['Pengguna Biasa'])
 
     context = {
-        'name': user[2],
-        'email': user[0],
-        'subscription_status': 'Premium' if is_premium else 'Non-Premium',
+        'name': user[2] if not is_label else user[1],
+        'email': user[0] if not is_label else user[2],
+        'subscription_status': 'Premium' if is_premium else 'Non-Premium' if is_premium is not None else None,
         'contact': None,
-        'hometown': user[6],
-        'gender': 'Laki-laki' if user[3] == 1 else 'Perempuan',
-        'birthplace': user[4],
-        'birthdate': user[5],
+        'hometown': user[7] if not is_label else None,
+        'gender': 'Laki-laki' if not is_label and user[3] == 1 else 'Perempuan' if not is_label else None,
+        'birthplace': user[4] if not is_label else None,
+        'birthdate': user[5] if not is_label else None,
         'role': roles,
         'is_premium': is_premium,
     }
@@ -39,11 +58,13 @@ def dashboard_view(request):
         context['podcasts'] = get_user_podcasts(user[0])
     if 'Label' in roles:
         context['albums'] = get_user_albums(user[0])
+        context['contact'] = user[4]
 
     cur.close()
     conn.close()
 
     return render(request, 'dashboard.html', context)
+
 
 
 def get_user_roles(email):
@@ -62,6 +83,10 @@ def get_user_roles(email):
     cur.execute("SELECT * FROM songwriter WHERE email_akun=%s", (email,))
     if cur.fetchone():
         roles.append('Songwriter')
+
+    cur.execute("SELECT * FROM label WHERE email=%s", (email,))
+    if cur.fetchone():
+        roles.append('Label')
 
     if not roles:
         roles.append('Pengguna Biasa')
@@ -113,7 +138,6 @@ def get_user_podcasts(user_email):
     conn.close()
     return [podcast[0] for podcast in podcasts]
 
-
 def get_user_albums(user_email):
     conn = data_from_db()
     cur = conn.cursor()
@@ -121,7 +145,7 @@ def get_user_albums(user_email):
         SELECT a.judul 
         FROM album a
         JOIN label l ON a.id_label = l.id
-        WHERE l.email=%s
+        WHERE l.email=%s::text
     """, (user_email,))
     albums = cur.fetchall()
     cur.close()
