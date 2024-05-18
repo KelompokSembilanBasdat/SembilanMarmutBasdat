@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +14,7 @@
     <title>Chart Detail</title>
 </head>
 
+{% block css %}
 <style>
         table {
             border-collapse: collapse;
@@ -47,60 +50,10 @@
             text-align: center;
         }
 </style>
+{% endblock %}
 
+{% block content %}
 <body>
-    <!-- navbar starts -->
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Marmut - 9</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!-- add/delete as needed -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Chart</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"> Kelola Playlist</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Langganan Paket</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Kelola Album & Songs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Cek Royalti</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Lihat Chart</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Play Podcast</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Kelola Podcast</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Logout</a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-    <!-- navbar ends -->
-
     <div class="position-relative overflow-hidden p-1 p-md-3 m-md-3 text-center bg-body-tertiary">
         <div class="col-md-12 p-lg-2 mx-auto my-5">
             <h1 class="display-4 fw-bold">Chart Detail</h1>
@@ -132,7 +85,7 @@
             {% for song in lagu_list %}
             <tr>
                 <td>{{ song.judul }}</td>
-                <td>{{ song.artis }}</td>
+                <td>{{ song.artist }}</td>
                 <td>{{ song.tanggal_rilis }}</td>
                 <td>{{ song.total_play }}</td>
                 <td><a href="#">Lihat</a></td>
@@ -142,3 +95,4 @@
     </table>
 </body>
 </html>
+{% endblock %}

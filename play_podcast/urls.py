@@ -1,6 +1,6 @@
 from django.urls import path
-from play_podcast.views import *
+from .views import play_podcast
 
 urlpatterns = [
-    path('play-podcast/', play_podcast, name='play_podcast'),
+    path('podcast/<int:podcast_id>/', play_podcast, name='play_podcast'),
 ]

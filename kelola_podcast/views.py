@@ -4,7 +4,12 @@ from utils.db import data_from_db
 def podcast_list(request):
     con = data_from_db()
     cur = con.cursor()
-    cur.execute("SELECT Podcast.id, Podcast.title, COUNT(Episode.id) AS episode_count, SUM(Episode.duration) AS total_duration FROM Podcast LEFT JOIN Episode ON Podcast.id = Episode.podcast_id GROUP BY Podcast.id, Podcast.title")
+    cur.execute("""
+        SELECT Podcast.id, Podcast.title, COUNT(Episode.id) AS episode_count, SUM(Episode.duration) AS total_duration 
+        FROM Podcast 
+        LEFT JOIN Episode ON Podcast.id = Episode.podcast_id 
+        GROUP BY Podcast.id, Podcast.title
+    """)
     podcasts = cur.fetchall()
     return render(request, 'PodcastManagement.html', {'podcasts': podcasts})
 
@@ -16,7 +21,7 @@ def create_podcast(request):
         genre = request.POST.getlist('genre')
         cur.execute("INSERT INTO Podcast (title, genre) VALUES (%s, %s)", (title, ','.join(genre)))
         con.commit()
-        return redirect('podcast_list')
+        return redirect('podcast_management')
     else:
         return render(request, 'PodcastManagement.html')
 
@@ -28,7 +33,7 @@ def view_podcast(request, podcast_id):
     # Fetch episodes for the podcast
     cur.execute("SELECT * FROM Episode WHERE podcast_id = %s", (podcast_id,))
     episodes = cur.fetchall()
-    return render(request, 'view_podcast.html', {'podcast': podcast, 'episodes': episodes})
+    return render(request, 'PodcastEpisodeManagement.html', {'podcast': podcast, 'episodes': episodes})
 
 def delete_podcast(request, podcast_id):
     if request.method == 'POST':
@@ -47,7 +52,7 @@ def view_episode(request, podcast_id):
     context = {
         'episodes': episodes
     }
-    return render(request, 'view_episode.html', context)
+    return render(request, 'PodcastEpisodeManagement.html', context)
 
 def add_episode(request, podcast_id):
     if request.method == 'POST':
@@ -63,7 +68,11 @@ def add_episode(request, podcast_id):
         
         return redirect('view_episode', podcast_id=podcast_id)
     else:
-        return render(request, 'add_episode.html')
-
-
-
+        return render(request, 'PodcastEpisodeManagement.html')
+    
+def delete_episode(request, episode_id):
+    con = data_from_db()
+    cur = con.cursor()
+    cur.execute("DELETE FROM Episode WHERE id = %s", (episode_id,))
+    con.commit()
+    return redirect(request.META.get('HTTP_REFERER', 'podcast_episode_management'))

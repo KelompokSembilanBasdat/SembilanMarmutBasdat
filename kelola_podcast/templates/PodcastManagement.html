@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,78 +99,28 @@
 </style>
 
 <body>
-    <!-- navbar starts -->
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Marmut - 9</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!-- add/delete as needed -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Chart</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"> Kelola Playlist</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Langganan Paket</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Kelola Album & Songs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Cek Royalti</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Lihat Chart</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Play Podcast</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Kelola Podcast</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Logout</a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-    <!-- navbar ends -->
-
     <div class="Title">
         <h1><strong>KELOLA PODCAST</strong></h1>
     </div>
     <div class="Create">
         <h2>Create Podcast</h2>
-        <p style="margin-bottom: 0;">Judul</p>
-        <input type="text" class="input-box" placeholder="Masukkan judul podcast">
-        <p style="margin: 0; padding-top: 0;">Genre</p>
-        <select class="select-box">
-            <option value="genre1">Genre 1</option>
-            <option value="genre2">Genre 2</option>
-            <option value="genre3">Genre 3</option>
-        </select>
-        <br>
-        <button class="submit-button">Submit</button>
+        <form method="POST" action="{% url 'create_podcast' %}">
+            {% csrf_token %}
+            <p style="margin-bottom: 0;">Judul</p>
+            <input type="text" name="title" class="input-box" placeholder="Masukkan judul podcast" required>
+            <p style="margin: 0; padding-top: 0;">Genre</p>
+            <select name="genre" class="select-box" required multiple>
+                <option value="genre1">Genre 1</option>
+                <option value="genre2">Genre 2</option>
+                <option value="genre3">Genre 3</option>
+            </select>
+            <br>
+            <button type="submit" class="submit-button">Submit</button>
+        </form>
     </div>
 
     <br>
     <br>
-
 
     <table>
         <thead>
@@ -183,30 +135,23 @@
             </tr>
         </thead>
         <tbody>
+            {% for podcast in podcasts %}
             <tr>
-                <td>Commercial country expert huge</td>
-                <td>6</td>
-                <td>180 menit</td>
+                <td>{{ podcast[1] }}</td>
+                <td>{{ podcast[2] }}</td>
+                <td>{{ podcast[3] }} menit</td>
                 <td>
-                    <a href="#">Lihat Daftar Episode</a>
+                    <a href="{% url 'view_episode' podcast[0] %}">Lihat Daftar Episode</a>
                     <br>
-                    <a href="#">Tambah Episode</a>
+                    <a href="{% url 'add_episode' podcast[0] %}">Tambah Episode</a>
                     <br>
-                    <a href="#" class="hapus">Hapus</a>
+                    <form method="POST" action="{% url 'delete_podcast' podcast[0] %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="hapus" style="background:none; border:none; color:red; cursor:pointer;">Hapus</button>
+                    </form>
                 </td>
             </tr>
-            <tr>
-                <td>Song one management already within</td>
-                <td>2</td>
-                <td>31 menit</td>
-                <td>
-                    <a href="#">Lihat Daftar Episode</a>
-                    <br>
-                    <a href="#">Tambah Episode</a>
-                    <br>
-                    <a href="#" class="hapus">Hapus</a>
-                </td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </body>

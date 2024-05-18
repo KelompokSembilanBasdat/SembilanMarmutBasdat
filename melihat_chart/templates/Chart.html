@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,59 +13,8 @@
     <title>Chart List</title>
 </head>
 
+{% block content %}
 <body>
-    <!-- navbar starts -->
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Marmut - 9</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!-- add/delete as needed -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Chart</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"> Kelola Playlist</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Langganan Paket</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Kelola Album & Songs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Cek Royalti</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Lihat Chart</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Play Podcast</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Kelola Podcast</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Logout</a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-    <!-- navbar ends -->
-    
     <div class="position-relative overflow-hidden p-1 p-md-3 m-md-3 text-center bg-body-tertiary">
         <div class="col-md-12 p-lg-2 mx-auto my-5">
             <h1 class="display-4 fw-bold">CHART LIST</h1>
@@ -78,20 +29,30 @@
             </tr>
         </thead>
         <tbody>
-            {% for chart in charts %}
             <tr>
-                <td>{{ chart.tipe }}</td>
-                {% if chart.tipe == 'Daily' %}
-                <td><a href="{% url 'ChartDetailDaily' chart.id %}" class="btn btn-primary">Lihat Daftar Lagu</a></td>
-                {% elif chart.tipe == 'Weekly' %}
-                <td><a href="{% url 'ChartDetailWeekly' chart.id %}" class="btn btn-primary">Lihat Daftar Lagu</a></td>
-                {% elif chart.tipe == 'Monthly' %}
-                <td><a href="{% url 'ChartDetailMonthly' chart.id %}" class="btn btn-primary">Lihat Daftar Lagu</a></td>
-                {% elif chart.tipe == 'Yearly' %}
-                <td><a href="{% url 'ChartDetailYearly' chart.id %}" class="btn btn-primary">Lihat Daftar Lagu</a></td>
-                {% endif %}
-            </tr>            
-            {% endfor %}
+                <td style="text-align: center;">Daily Top 20</td>
+                <td style="text-align: center;">
+                    <a href="{% url 'detail_chart' chart_type='Daily Top 20' %}" class="btn btn-primary">Lihat Daftar Lagu</a>
+                </td>
+            </tr>   
+            <tr>
+                <td style="text-align: center;">Weekly Top 20</td>
+                <td style="text-align: center;">
+                    <a href="{% url 'detail_chart' chart_type='Weekly Top 20' %}" class="btn btn-primary">Lihat Daftar Lagu</a>
+                </td>
+            </tr>    
+            <tr>
+                <td style="text-align: center;">MonthlyTop 20</td>
+                <td style="text-align: center;">
+                    <a href="{% url 'detail_chart' chart_type='Monthly Top 20' %}" class="btn btn-primary">Lihat Daftar Lagu</a>
+                </td>
+            </tr>        
+            <tr>
+                <td style="text-align: center;">Yearly Top 20</td>
+                <td style="text-align: center;">
+                    <a href="{% url 'detail_chart' chart_type='Yearly Top 20' %}" class="btn btn-primary">Lihat Daftar Lagu</a>
+                </td>
+            </tr>  
         </tbody>
         <tfoot>
             <tr>
@@ -103,3 +64,39 @@
     </table>
 </body>
 </html>
+{% endblock %}
+
+{% block css %}
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: white;
+    }
+
+    .button {
+        background-color: blue;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+</style>
+{% endblock %}
+
+
