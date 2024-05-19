@@ -11,7 +11,7 @@ def detail_chart(request, chart_type):
 
     # Fetch chart details
     cur.execute("""
-        SELECT C.tipe, K.judul AS title, AK.nama AS artist, K.tanggal_rilis AS release_date, S.total_play AS plays
+        SELECT S.id_konten AS song_id, C.tipe, K.judul AS title, AK.nama AS artist, K.tanggal_rilis AS release_date, S.total_play AS plays
         FROM CHART C
         JOIN PLAYLIST_SONG PS ON C.id_playlist = PS.id_playlist
         JOIN SONG S ON PS.id_song = S.id_konten
@@ -29,16 +29,18 @@ def detail_chart(request, chart_type):
     # Convert tuples to dictionaries
     lagu_list = [
         {
-            'tipe': row[0],
-            'judul': row[1],
-            'artist': row[2],
-            'tanggal_rilis': row[3],
-            'total_play': row[4]
+            'id': row[0],
+            'tipe': row[1],
+            'judul': row[2],
+            'artist': row[3],
+            'tanggal_rilis': row[4],
+            'total_play': row[5]
         }
         for row in lagu_list
     ]
 
     return render(request, 'chartdetail{}.html'.format(chart_type.split()[0]), {'lagu_list': lagu_list})
+
 
 
 

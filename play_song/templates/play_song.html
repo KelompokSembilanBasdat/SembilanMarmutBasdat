@@ -6,11 +6,13 @@
 {% endblock meta %}
 
 {% block content %}
-{% include "navbar/navbar_pengguna.html" %}
+<br>
+<br>
+
 <div class="bg-gradient-to-bl from-green-400 to-blue-600 min-h-screen flex justify-center items-center py-20">
-    <div class="w-full max-w-4xl bg-gray-900 rounded-lg shadow-lg p-12 mx-auto">
-        <h1 class="text-5xl text-yellow-400 font-bold text-center mb-12">Detail Lengkap Lagu</h1>
-        <div class="flex flex-col md:flex-row md:space-x-12 text-yellow-300">
+    <div class="w-full max-w-4xl bg-gray-800 rounded-lg shadow-lg p-12 mx-auto">
+        <h1 class="text-5xl text-white font-bold text-center mb-12">Detail Lengkap Lagu</h1>
+        <div class="flex flex-col md:flex-row md:space-x-12 text-white">
             <div class="md:w-1/2">
                 <p class="mb-4"><strong>Judul:</strong> {{ song_title }}</p>
                 <p class="mb-4"><strong>Genre:</strong> 
@@ -35,9 +37,9 @@
             </div>
         </div>
         <div class="mt-10">
-            <label for="progressSlider" class="block text-yellow-300 mb-4">Kemajuan Lagu:</label>
+            <label for="progressSlider" class="block text-white mb-4">Kemajuan Lagu:</label>
             <input type="range" id="progressSlider" name="songProgress" min="0" max="100" value="0" class="w-full mb-2" onchange="updateSliderValue(this.value)">
-            <span id="sliderValue" class="block text-center text-yellow-300 text-lg">0%</span>
+            <span id="sliderValue" class="block text-center text-white text-lg">0%</span>
         </div>
         <form method="POST" class="mt-6">
             {% csrf_token %}
@@ -46,7 +48,7 @@
                 {% if is_premium %}
                     <button type="submit" formaction="{% url 'play_song:download_song' id_konten=id_konten %}" class="border-2 border-yellow-400 text-yellow-400 rounded-lg py-2 px-6 hover:bg-yellow-400 hover:text-gray-900 transition duration-200 mb-4 md:mb-0">Unduh Lagu</button>
                 {% endif %}
-                <a href="{% url 'dashboard:dashboard_pengguna' %}" class="border-2 border-yellow-400 text-yellow-400 rounded-lg py-2 px-6 hover:bg-yellow-400 hover:text-gray-900 transition duration-200">Kembali ke Dashboard</a>
+                <a href="{% url 'dashboard' %}" class="border-2 border-yellow-400 text-yellow-400 rounded-lg py-2 px-6 hover:bg-yellow-400 hover:text-gray-900 transition duration-200">Kembali ke Dashboard</a>
             </div>
         </form>
     </div>

@@ -15,11 +15,11 @@
 
 {% block content %}
 <body>
-    <div class="position-relative overflow-hidden p-1 p-md-3 m-md-3 text-center bg-body-tertiary">
+    <div class="position-relative overflow-hidden p-1 p-md-3 m-md-3 text-center bg-body-tertiary bg-custom">
         <div class="col-md-12 p-lg-2 mx-auto my-5">
             <h1 class="display-4 fw-bold">CHART LIST</h1>
         </div>
-    </div>
+    </div>    
 
     <table class="table">
         <thead>
@@ -57,8 +57,10 @@
         <tfoot>
             <tr>
                 <td colspan="2" style="text-align: center;">
-                    <button class="back button">Kembali</button>
-                </td>
+                    <a href="{% url 'dashboard' %}">
+                        <button class="back button">Kembali</button>
+                    </a>
+                </td>                
             </tr>
         </tfoot>
     </table>
@@ -68,6 +70,13 @@
 
 {% block css %}
 <style>
+    body,
+    html {
+        height: 100%;
+        margin: 0;
+        background-color: #42bcff;
+    }
+
     table {
         border-collapse: collapse;
         width: 100%;
