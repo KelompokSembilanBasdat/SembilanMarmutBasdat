@@ -17,8 +17,24 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    $(document).ready(function() {
-        $('#search-form').on('submit', function(event) {
+    function redirectToDetail(identifier, id) {
+        var detailUrl;
+        if (identifier === 'Song') {
+            detailUrl = '/play-song/coba/' + id +'/';
+        } else if (identifier === 'Podcast') {
+            detailUrl = '/play-podcast/podcast/' + id+'/'; 
+        } else if (identifier === 'User Playlist') {
+            detailUrl = '/user-playlist/detail_playlist/' + id+'/';
+        } else {
+            console.error('Unknown content type:', identifier);
+            detailUrl = '#'; //debug purposes
+        }
+
+        window.location.href = detailUrl;
+    }
+
+    $(document).ready(function () {
+        $('#search-form').on('submit', function (event) {
             event.preventDefault();
             var query = $('#searchQuery').val();
             $.ajax({
@@ -26,14 +42,14 @@
                 data: {
                     'search': query
                 },
-                success: function(data) {
+                success: function (data) {
                     $('#results').empty();
                     if (data.results.length > 0) {
-                        var table = '<div class="table-wrapper"><table><thead><tr><th>Tipe</th><th>Judul</th><th>Oleh</th><th>Actions</th></tr></thead><tbody>';
-                        data.results.forEach(function(result) {
-                            table += '<tr><td>' + result[1] + '</td><td>' + result[0] + '</td><td>' + result[2] + '</td><td><button class="detail-button" onclick="redirectToDetail(\'' + result[0] + '\')" >Detail</button></td></tr>';
+                        var table = '<table><thead><tr><th>Tipe</th><th>Judul</th><th>Oleh</th><th>Actions</th></tr></thead><tbody>';
+                        data.results.forEach(function (result) {
+                            table += '<tr><td>' + result[1] + '</td><td>' + result[0] + '</td><td>' + result[2] + '</td><td><button class="detail-button" onclick="redirectToDetail(\'' + result[1] + '\' , \'' + result[3] + '\')">Detail</button></td></tr>';
                         });
-                        table += '</tbody></table></div>';
+                        table += '</tbody></table>';
                         $('#results').append(table);
                     } else {
                         $('#results').append('<p>Maaf, pencarian untuk “' + query + '” tidak ditemukan.</p>');
@@ -41,18 +57,15 @@
                 }
             });
         });
-
-        function redirectToDetail(title) {
-            window.location.href = '/detail/' + encodeURIComponent(title);
-        }
     });
 </script>
 
-{% endblock %} 
+{% endblock %}
 
 {% block css %}
 <style>
-    body, html {
+    body,
+    html {
         height: 100%;
         margin: 0;
         font-family: Arial, sans-serif;
@@ -108,17 +121,13 @@
         background-color: #359FD9;
     }
 
-    .table-wrapper {
-        max-height: 300px;
-        overflow-y: auto;
-    }
-
     table {
         width: 100%;
         border-collapse: collapse;
     }
 
-    th, td {
+    th,
+    td {
         border: 1px solid #ddd;
         padding: 8px;
         text-align: center;

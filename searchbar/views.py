@@ -7,7 +7,7 @@ def search_bar(request):
         search = request.GET.get('search', '')
         formatted_search = f'%{search}%'
         search_query = """
-        SELECT konten.judul AS Title, 'Song' AS ContentType, akun.nama AS CreatorName
+        SELECT konten.judul AS Title, 'Song' AS ContentType, akun.nama AS CreatorName, konten.id AS ID
         FROM song
         JOIN konten ON song.id_konten = konten.id
         JOIN artist ON song.id_artist = artist.id
@@ -16,7 +16,7 @@ def search_bar(request):
 
         UNION
 
-        SELECT konten.judul AS Title, 'Podcast' AS ContentType, akun.nama AS CreatorName
+        SELECT konten.judul AS Title, 'Podcast' AS ContentType, akun.nama AS CreatorName, konten.id AS ID
         FROM podcast
         JOIN konten ON podcast.id_konten = konten.id
         JOIN podcaster ON podcast.email_podcaster = podcaster.email
@@ -25,7 +25,7 @@ def search_bar(request):
 
         UNION
 
-        SELECT user_playlist.judul AS Title, 'User Playlist' AS ContentType, akun.nama AS CreatorName
+        SELECT user_playlist.judul AS Title, 'User Playlist' AS ContentType, akun.nama AS CreatorName, user_playlist.id_user_playlist AS ID
         FROM user_playlist
         JOIN akun ON user_playlist.email_pembuat = akun.email
         WHERE user_playlist.judul ILIKE %s
