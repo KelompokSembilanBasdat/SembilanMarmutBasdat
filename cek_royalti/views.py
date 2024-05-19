@@ -23,7 +23,7 @@ def cek_royalti(request):
                 JOIN ROYALTI ON SONG.id_konten = ROYALTI.id_song
                 WHERE LABEL.email = '{email}'
                 AND ROYALTI.id_pemilik_hak_cipta = LABEL.id_pemilik_hak_cipta
-                ORDER BY total_royalties DESC;
+                ORDER BY jumlah DESC;
         """
     else:
          cur.execute("SELECT update_royalties(%s)", (email,))
