@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Kelola Album Song{% endblock %}
+{% block css %}
+<style>
+    .add-album {
+        background-color: #42BCFF;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .tableFixHead {
+        overflow: auto;
+        height: 500px;
+    }
+
+    .tableFixHead thead th {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th,
+    td {
+        padding: 8px 16px;
+    }
+
+    th {
+        background: #eee;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="position-relative overflow-hidden mt-5 p-1 p-md-3 m-md-3 text-center bg-body-tertiary" style="background-color: #42BCFF !important; color: white;">
+    <div class="col-md-12 p-lg-2 mx-auto my-5">
+        <h1 class="display-4 fw-bold">Kelola Album & Song</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="py-2">
+        <form action="{% url 'add_album' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="add-album btn-primary">Tambah Album</button>
+        </form>
+    </div>
+    <div class="py-4">
+        <div class="pb-3">
+            <h2 class="text-center">List Album</h2>
+        </div>
+        <div class="tableFixHead">
+            <table class="table table-striped ">
+                <thead>
+                    <tr class="text-center ">
+                        <th>Judul</th>
+                        <th>Label</th>
+                        <th>Jumlah Lagu</th>
+                        <th>Total Durasi</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for judul, label, jumlah_lagu, total_durasi, id in albums %}
+                    <tr>
+                        <td>{{ judul }}</td>
+                        <td><div class="text-center">{{ label }}</div></td>
+                        <td><div class="text-center">{{ jumlah_lagu }}</div></td>
+                        <td><div class="text-center">{{ total_durasi }} menit</div></td>
+                        <td>
+                            <div class="text-center">
+                                <div class="p-1">
+                                    <a href="{% url 'view_album' id %}" class="link-primary">Lihat daftar lagu</a>
+                                </div>
+                                <div class="p-1">
+                                    <a href="{% url 'add_song' id %}" class="link-primary">Tambah lagu</a>
+                                </div>
+                                <div class="p-1">
+                                    <a href="{% url 'delete_album' id %}" class="link-danger">Hapus</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">Tidak ada album</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

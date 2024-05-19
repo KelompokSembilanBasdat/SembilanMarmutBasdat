@@ -1,44 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Downloaded Song</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: center;
-        }
-        th, td {
-            padding: 10px;
-            border: 1px solid black;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
-<body>
-    <h1>Downloaded Song</h1>
-    <table>
-        <thead>
+{% extends 'base.html' %}
+
+{% block title %}Kelola Downloaded Songs{% endblock %}
+
+{% block content %}
+<div class="center-wrapper">
+    <div class="container">
+        <h1>Downloaded Songs</h1>
+        <table>
             <tr>
-                <th>Id Song</th>
-                <th>Email</th>
+                <th>Judul Lagu</th>
+                <th>Oleh</th>
+                <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-            {% for id_song, email_downloader in downloaded_song %}
+            {% for song in songs %}
             <tr>
-                <td>{{ id_song }}</td>
-                <td>{{ email_downloader }}</td>
+                <td>{{ song.judul }}</td>
+                <td>{{ song.artist }}</td>
+                <td>
+                    <b >Lihat</b>
+                    <a href="{% url 'delete_downloaded_song' id_song=song.id_konten %}">Hapus</a>
+                </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="2">No songs found.</td>
+                <td colspan="3">No downloaded songs available.</td>
             </tr>
             {% endfor %}
-        </tbody>
-    </table>
-</body>
-</html>
+        </table>
+        <a href="{% url 'dashboard' %}" class="back-link">Kembali</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block css %}
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #42BCFF;
+    }
+
+    .center-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding: 10px;
+    }
+
+    .container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 800px;
+    }
+    
+    h1 {
+        color: #42BCFF;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    b {
+        color: #42BCFF;
+    }
+
+    b:hover {
+        text-decoration: underline;
+    }
+
+    a {
+        color: red;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        color: white;
+        background-color: #42BCFF;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: bold;
+        text-decoration: none;
+        width: fit-content;
+        margin: 30px auto 0;
+    }
+    .back-link:hover {
+        background-color: #359FD9;
+    }
+</style>
+{% endblock %}

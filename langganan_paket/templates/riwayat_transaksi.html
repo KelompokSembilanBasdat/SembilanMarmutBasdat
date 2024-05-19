@@ -1,37 +1,38 @@
 {% extends 'base.html' %}
 
-{% block title %}Paket Langganan{% endblock %}
+{% block title %}Riwayat Transaksi{% endblock %}
 
 {% block content %}
 <div class="center-wrapper">
     <div class="container">
-        <h1>Langganan Paket</h1>
+        <h1>Riwayat Transaksi Paket</h1>
         <table>
-            <tr>
-                <th>Jenis</th>
-                <th>Harga</th>
-                <th>Action</th>
-            </tr>
-            {% for paket in paket_list %}
-            <tr>
-                <td>{{ paket.jenis }}</td>
-                <td>Rp{{ paket.harga }}</td>
-                <td>
-                    <form action="{% url 'laman_pembayaran' %}" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="jenis" value="{{ paket.jenis }}">
-                        <input type="hidden" name="harga" value="{{ paket.harga }}">
-                        <button type="submit">Berlangganan</button>
-                    </form>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="3">No paket available.</td>
-            </tr>
-            {% endfor %}
+            <thead>
+                <tr>
+                    <th>Jenis</th>
+                    <th>Tanggal Dimulai</th>
+                    <th>Tanggal Berakhir</th>
+                    <th>Metode Pembayaran</th>
+                    <th>Nominal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaksi in transaksi_list %}
+                <tr>
+                    <td>{{ transaksi.jenis_paket }}</td>
+                    <td>{{ transaksi.timestamp_dimulai|date:"j F Y, H:i" }}</td>
+                    <td>{{ transaksi.timestamp_berakhir|date:"j F Y, H:i" }}</td>
+                    <td>{{ transaksi.metode_bayar }}</td>
+                    <td>Rp{{ transaksi.nominal }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No transactions found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
-        <a href="{% url 'riwayat_transaksi' %}" class="tra-link">Riwayat Transaksi</a>
+        <a href="{% url 'show_paket' %}" class="back-link">Kembali</a>
     </div>
 </div>
 {% endblock %}
@@ -71,6 +72,7 @@
     table {
         width: 100%;
         border-collapse: collapse;
+        margin-bottom: 20px;
     }
 
     th, td {
@@ -82,7 +84,6 @@
     th {
         background-color: #f2f2f2;
     }
-
     tr:nth-child(even) {
         background-color: #f9f9f9;
     }
@@ -91,22 +92,7 @@
         background-color: #f1f1f1;
     }
 
-    button {
-        background-color: #42BCFF;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        color: white;
-        cursor: pointer;
-        items-align: center;
-        justify-content: center;
-    }
-
-    button:hover {
-        background-color: #359FD9;
-    }
-
-    .tra-link {
+    .back-link {
         display: block;
         text-align: center;
         color: white;
@@ -117,10 +103,10 @@
         font-weight: bold;
         text-decoration: none;
         width: fit-content;
-        margin: 30px auto 0; /* Adds margin-top: 30px and centers the button */
+        margin: 30px auto 0;
     }
-    
-    .tra-link:hover {
+
+    .back-link:hover {
         background-color: #359FD9;
     }
 </style>

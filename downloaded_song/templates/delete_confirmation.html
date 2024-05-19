@@ -1,45 +1,60 @@
 {% extends 'base.html' %}
 
-{% block title %}Register Option{% endblock %}
+{% block title %}Delete Confirmation{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="option-container">
-        <h2>Choose Your Option</h2>
-        <a href="/register_pengguna/" class="back-link">Register Pengguna</a><br>
-        <a href="/register_label/" class="back-link">Register Label</a>
+<div class="center-wrapper">
+    <div class="container">
+        <h1>Delete Confirmation</h1>
+        <p>Berhasil menghapus Lagu dengan judul '{{ judul_lagu }}' dari daftar unduhan!</p>
+        <a href="{% url 'downloaded_songs' %}" class="back-link">Kembali</a>
     </div>
 </div>
 {% endblock %}
 
 {% block css %}
-
 <style>
     body, html {
         height: 100%;
         margin: 0;
+        font-family: Arial, sans-serif;
         background-color: #42BCFF;
+    }
+
+    .center-wrapper {
         display: flex;
         justify-content: center;
         align-items: center;
+        height: 70vh;
+        padding: 10px;
     }
+
     .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        margin-top: 56px;
-    }
-    .option-container {
         background-color: white;
-        color: #42BCFF;
         padding: 30px;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 800px;
+    }
+
+    h1 {
+        color: #42BCFF;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    p {
         text-align: center;
     }
-    .option-container h2 {
-        margin-bottom: 20px;
+
+    a {
+        color: #42BCFF;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
     }
 
     .back-link {
@@ -55,9 +70,9 @@
         width: fit-content;
         margin: 30px auto 0;
     }
+    
     .back-link:hover {
         background-color: #359FD9;
     }
-
 </style>
 {% endblock %}

@@ -1,7 +1,7 @@
 <header>
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav class="navbar navbar-expand-lg bg-light fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Marmut - 9</a>
+            <a class="navbar-brand" >Marmut - 9</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
                         <a class="nav-link" href="{% url 'search_bar' %}">Search Bar</a>
                     </li>
                     <li class="nav-item">
-                        {% comment %} <a class="nav-link" href="{% url 'kelola_playlist' %}">Kelola Playlist</a> {% endcomment %}
+                        <a class="nav-link" href="{% url 'user_playlist:user_playlist' %}">Kelola Playlist</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'show_paket' %}">Langganan Paket</a>
@@ -39,7 +39,7 @@
                     {% endif %}
                     {% if request.session.is_premium %}
                     <li class="nav-item">
-                        {% comment %} <a class="nav-link" href="{% url 'kelola_downloaded_songs' %}">Kelola Downloaded Songs</a> {% endcomment %}
+                        <a class="nav-link" href="{% url 'downloaded_songs' %}">Kelola Downloaded Songs</a>
                     </li>
                     {% endif %}
                     {% if 'Podcaster' in request.session.roles %}
@@ -49,23 +49,23 @@
                     {% endif %}
                     {% if 'Artist' in request.session.roles or 'Songwriter' in request.session.roles %}
                     <li class="nav-item">
-                        {% comment %} <a class="nav-link" href="{% url 'kelola_album_song' %}">Kelola Album & Songs</a> {% endcomment %}
+                        <a class="nav-link" href="{% url 'kelola_album_song' %}">Kelola Album & Songs</a>
                     </li>
                     {% endif %}
                     {% if 'Label' in request.session.roles %}
                     <li class="nav-item">
-                        {% comment %} <a class="nav-link" href="{% url 'kelola_album_song' %}">Kelola Album</a> {% endcomment %}
+                        <a class="nav-link" href="{% url 'kelola_album_song' %}">Kelola Album</a>
                     </li>
                     {% endif %}
                     {% if 'Artist' in request.session.roles or 'Songwriter' in request.session.roles or 'Label' in request.session.roles %}
                     <li class="nav-item">
-                        {% comment %} <a class="nav-link" href="{% url 'cek_royalti' %}">Cek Royalti</a> {% endcomment %}
+                        <a class="nav-link" href="{% url 'cek_royalti' %}">Cek Royalti</a>
                     </li>
                     {% endif %}
                 </ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        <a class="nav-link logout-button" href="{% url 'logout' %}">Logout</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -73,3 +73,26 @@
         </div>
     </nav>
 </header>
+
+<style>
+    .logout-button {
+        background-color: #42BCFF;
+        color: white !important;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-align: center;
+    }
+    
+    .logout-button:hover {
+        background-color: #359FD9;
+        color: white !important;
+    }    
+
+    .nav-item:hover {
+        color: #42BCFF;
+    }
+
+    .nav-link:hover {
+        color: #42BCFF !important;
+    }
+</style>
