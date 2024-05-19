@@ -17,8 +17,8 @@
                 <td>{{ song.judul }}</td>
                 <td>{{ song.artist }}</td>
                 <td>
-                    <b >Lihat</b>
-                    <a href="{% url 'delete_downloaded_song' id_song=song.id_konten %}">Hapus</a>
+                    <a href="{% url 'play_song:play_song' id_konten=song.id_konten %}" class="link-view">Lihat</a>
+                    <a href="{% url 'delete_downloaded_song' id_song=song.id_konten %}" class="link-delete">Hapus</a>
                 </td>
             </tr>
             {% empty %}
@@ -87,16 +87,13 @@
         background-color: #f1f1f1;
     }
 
-    b {
-        color: #42BCFF;
+    .link-view {
+        color: blue;
+        margin-right: 5px;
     }
-
-    b:hover {
-        text-decoration: underline;
-    }
-
-    a {
+    .link-delete {
         color: red;
+        margin-left: 5px;
     }
 
     a:hover {
