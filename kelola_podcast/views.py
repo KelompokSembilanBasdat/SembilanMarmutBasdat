@@ -134,6 +134,8 @@ def podcast_episode_management(request, podcast_id):
                 VALUES (%s, %s, %s, %s, %s, %s)  
         """, [random_id, podcast_id, title, description, duration, current_time])  
 
+        con.commit()
+
     episode_list = get_episode_list(podcast_id)
 
     podcast_data = {
