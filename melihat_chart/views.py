@@ -39,7 +39,7 @@ def detail_chart(request, chart_type):
         for row in lagu_list
     ]
 
-    return render(request, 'chartdetail{}.html'.format(chart_type.split()[0]), {'lagu_list': lagu_list})
+    return render(request, 'ChartDetail{}.html'.format(chart_type.split()[0]), {'lagu_list': lagu_list})
 
 
 
