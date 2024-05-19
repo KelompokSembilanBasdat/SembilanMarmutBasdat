@@ -42,7 +42,7 @@ def play_user_playlist(cursor: CursorWrapper, request, id_user_playlist):
 
         return redirect('playlist:play_user_playlist', id_user_playlist=id_user_playlist)
 
-    return render(request, 'playUserPlaylist.html', {
+    return render(request, 'play_user_playlist.html', {
         'playlist': {
             'judul': playlist[0],
             'deskripsi': playlist[1],
