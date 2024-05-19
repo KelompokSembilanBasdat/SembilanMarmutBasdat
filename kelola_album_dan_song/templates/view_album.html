@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}View Album{% endblock %}
+{% block css %}
+<style>
+    .tableFixHead {
+        overflow: auto;
+        height: 500px;
+    }
+
+    .tableFixHead thead th {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th,
+    td {
+        padding: 8px 16px;
+    }
+
+    th {
+        background: #eee;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="position-relative overflow-hidden p-1 p-md-3 m-md-3 text-center bg-body-tertiary">
+        <div class="col-md-12 p-lg-2 mx-auto my-5">
+            <h2 class="text-center">Daftar Lagu pada</h2>
+            {% for t in title %}
+            {% for raw in t %}
+            <h1 class="display-4 fw-bold">{{ raw }}</h1>
+            {% endfor %}
+            {% endfor %}
+            <a href="{% url 'kelola_album_song' %}" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="py-4">
+            <div class="tableFixHead">
+                <table class="table table-striped ">
+                    <thead>
+                        <tr class="text-center ">
+                            <th>Judul</th>
+                            <th>Durasi</th>
+                            <th>Total Play</th>
+                            <th>Total Download</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for judul, durasi, total_play, total_download, id_song, id_album in songs %}
+                        <tr class="text-center">
+                            <td>{{ judul }}</td>
+                            <td>{{ durasi }}</td>
+                            <td>{{ total_play }}</td>
+                            <td>{{ total_download }}</td>
+                            <td>
+                                <div class="text-center">
+                                    <div class="p-1">
+                                        <a href="#" class="link-primary">Lihat Detail</a>
+                                    </div>
+                                    <div class="p-1">
+                                        <a href="{% url 'delete_song' id_album id_song %}" class="link-danger">Hapus</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

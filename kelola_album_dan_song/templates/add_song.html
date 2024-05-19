@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Song{% endblock %}
+{% block css %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="py-4">
+        <div class="text-center">
+            <h2>Create Lagu</h2>
+            <div class="px-4" id="error-alert" style="display: none;"></div>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <form class="px-3" method="post" action="{% url 'add_song_submit' id_album %}"
+                        onsubmit="return validateForm()">
+                        <div class="form-group pb-2">
+                            <label for="album">Album</label>
+                            <input type="text" class="form-control" id="album" value="{{ title.0 }}" disabled>
+                        </div>
+                        <div class="form-group pb-2">
+                            <label for="judul">Judul</label>
+                            <input type="text" class="form-control" id="judul" name="judul" placeholder="Masukkan judul">
+                        </div>
+                        <div class="form-group pb-2">
+                            <label for="artist">Artist</label>
+                            {% if is_artist %}
+                            <input type="text" class="form-control" id="artist" value="{{ name }}" disabled>
+                            <input type="hidden" name="artist" value="{{ id_artist }}">
+                            {% else %}
+                            <select class="form-control" id="artist" name="artist">
+                                {% for artist, id in artist_list %}
+                                <option value="{{ id }}">{{ artist }}</option>
+                                {% endfor %}
+                            </select>
+                            {% endif %}
+                        </div>
+                        <div class="pb-1">
+                            <label>Songwriter</label>
+                        </div>
+                        <div class="row justify-content-start pb-2">
+                            <div class="col-5">
+                                {% for songwriter, id in songwriter_first_half %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="songwriter" value="{{ id }}"
+                                        id="songwriter{{ forloop.counter }}"
+                                        {% if is_songwriter and id == id_songwriter %} checked disabled {% endif %}>
+                                    <label class="form-check-label" for="songwriter{{ forloop.counter }}">
+                                        {{ songwriter }}
+                                    </label>
+                                    {% if is_songwriter and id == id_songwriter %}
+                                    <input type="hidden" name="songwriter" value="{{ id_songwriter }}">
+                                    {% endif %}
+                                </div>
+                                
+                                {% endfor %}
+                            </div>
+                            <div class="col-5">
+                                {% for songwriter, id in songwriter_second_half %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="songwriter" value="{{ id }}"
+                                        id="songwriter{{ forloop.counter }}"
+                                        {% if is_songwriter and id == id_songwriter %} checked disabled {% endif %}>
+                                    <label class="form-check-label" for="songwriter{{ forloop.counter }}">
+                                        {{ songwriter }}
+                                    </label>
+                                    {% if is_songwriter and id == id_songwriter %}
+                                    <input type="hidden" name="songwriter" value="{{ id_songwriter }}">
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="pb-1">
+                            <label>Genre</label>
+                        </div>
+                        <div class="row justify-content-start pb-2">
+                            <div class="col-5">
+                                {% for genre in genre_first_half %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="genre" value="{{ genre }}" id="{{ genre }}">
+                                    <label class="form-check-label" for="{{ genre }}">
+                                        {{ genre }}
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-5">
+                                {% for genre in genre_second_half %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="genre" value="{{ genre }}" id="{{ genre }}">
+                                    <label class="form-check-label" for="{{ genre }}">
+                                        {{ genre }}
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="col 8 col-md-5">
+                            <div class="form-group pb-2">
+                                <label for="durasi">Durasi</label>
+                                <input type="text" class="form-control" id="durasi" name="durasi" placeholder="Masukkan durasi">
+                            </div>
+                        </div>
+                        <div class="text-center py-2">
+
+                            <a href="{% url 'kelola_album_song' %}" class="btn btn-secondary">Back</a>
+
+
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function displayError(message) {
+        var alertDiv = document.getElementById('error-alert');
+        alertDiv.innerHTML = '<div class="alert alert-danger" role="alert">' + message + '</div>';
+        alertDiv.style.display = 'block';
+        setTimeout(function() {
+            alertDiv.style.display = 'none';
+        }, 3500);
+    }
+
+    function validateForm() {
+        var judul = document.getElementById('judul').value;
+        var durasi = document.getElementById('durasi').value;
+        var songwritersChecked = document.querySelectorAll('input[name="songwriter"]:checked').length;
+        var genresChecked = document.querySelectorAll('input[name="genre"]:checked').length;
+
+        if (!judul) {
+            displayError("Judul harus diisi");
+            return false;
+        }
+
+        if (!songwritersChecked) {
+            displayError("Harus setidaknya terdapat satu songwriter!");
+            return false;
+        }
+
+        if (!genresChecked) {
+            displayError("Harus setidaknya terdapat satu genre!");
+            return false;
+        }
+
+        if (isNaN(durasi) || durasi <= 0) {
+            displayError("Durasi harus merupakan bilangan bulat positif!");
+            return false;
+        }
+
+        if (judul.length > 100) {
+            displayError("Judul harus berada dalam 100 karakter!");
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+
+{% endblock %}
