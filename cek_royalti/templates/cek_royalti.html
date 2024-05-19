@@ -52,13 +52,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for title, album, total_plays, total_downloads, total_royalties in royalties %}
+                    {% for judul, album, total_play, total_download, jumlah in royalties %}
                     <tr class="text-center">
-                        <td>{{ title }}</td> 
+                        <td>{{ judul }}</td> 
                         <td>{{ album }}</td> 
-                        <td>{{ total_plays }}</td> 
-                        <td>{{ total_downloads }}</td> 
-                        <td>{{ total_royalties }}</td>
+                        <td>{{ total_play }}</td> 
+                        <td>{{ total_download }}</td> 
+                        <td>{{ jumlah }}</td>
                     </tr>
                     {% empty %}
                     <tr>

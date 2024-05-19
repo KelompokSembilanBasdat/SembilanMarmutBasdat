@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Kelola{% endblock %}
+{% block title %}Kelola Album Song{% endblock %}
 {% block css %}
 <style>
     .tableFixHead {
@@ -31,134 +31,64 @@
 {% endblock %}
 
 {% block content %}
-    <div class="position-relative overflow-hidden p-1 p-md-3 m-md-3 text-center bg-body-tertiary">
-        <div class="col-md-12 p-lg-2 mx-auto my-5">
-            <h1 class="display-4 fw-bold">Kelola Album & Song</h1>
+<div class="position-relative overflow-hidden p-1 p-md-3 m-md-3 text-center bg-body-tertiary">
+    <div class="col-md-12 p-lg-2 mx-auto my-5">
+        <h1 class="display-4 fw-bold">Kelola Album & Song</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="py-2">
+        <form action="{% url 'add_album' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Add Album</button>
+        </form>
+    </div>
+    <div class="py-4">
+        <div class="pb-3">
+            <h2 class="text-center">List Album</h2>
+        </div>
+        <div class="tableFixHead">
+            <table class="table table-striped ">
+                <thead>
+                    <tr class="text-center ">
+                        <th>Judul</th>
+                        <th>Label</th>
+                        <th>Jumlah Lagu</th>
+                        <th>Total Durasi</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for judul, label, jumlah_lagu, total_durasi, id in albums %}
+                    <tr>
+                        <td>{{ judul }}</td>
+                        <td>{{ label }}</td>
+                        <td>{{ jumlah_lagu }}</td>
+                        <td>{{ total_durasi }} menit</td>
+                        <td>
+                            <div class="text-center">
+                                <div class="p-1">
+                                    <a href="{% url 'view_album' id %}" class="link-primary">Lihat daftar lagu</a>
+                                </div>
+                                <div class="p-1">
+                                    <a href="{% url 'add_song' id %}" class="link-primary">Tambah lagu</a>
+                                </div>
+                                <div class="p-1">
+                                    <a href="{% url 'delete_album' id %}" class="link-danger">Hapus</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">Tidak ada album</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 
-    <div class="container">
-        <div class="py-2">
-            <form action="{% url 'add_song' %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-primary">Add Album</button>
-              </form>
-        </div>
-        <div class="py-4">
-            <div class="pb-3">
-                <h2 class="text-center">List Album</h2>
-            </div>
-            <div class="tableFixHead">
-                <table class="table table-striped ">
-                    <thead>
-                        <tr class="text-center ">
-                            <th>Judul</th>
-                            <th>Label</th>
-                            <th>Jumlah Lagu</th>
-                            <th>Total Durasi</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>User-centric scalable concept</td>
-                            <td>Scott Inc</td>
-                            <td>11</td>
-                            <td>1031 menit</td>
-                            <td>
-                                <div class="text-center ">
-                                    <div class="p-1">
-                                        <a href="#" class="link-primary">Lihat daftar lagu</a>
-                                    </div>
-                                    <div class="p-1">
-                                        <a href="#" class="link-primary">Tambah lagu</a>
-                                    </div>
-                                    <div class="p-1">
-                                        <a href="#" class="link-danger">Hapus</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Synchronized holistic Internet solution</td>
-                            <td>Perez, Love and Chavez</td>
-                            <td>8</td>
-                            <td>637 menit</td>
-                            <td>
-                                <div class="text-center ">
-                                    <div class="p-1">
-                                        <a href="#" class="link-primary">Lihat daftar lagu</a>
-                                    </div>
-                                    <div class="p-1">
-                                        <a href="#" class="link-primary">Tambah lagu</a>
-                                    </div>
-                                    <div class="p-1">
-                                        <a href="#" class="link-danger">Hapus</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Profit-focused logistical data-warehouse</td>
-                            <td>Shaw-Bennett</td>
-                            <td>10</td>
-                            <td>1087 menit</td>
-                            <td>
-                                <div class="text-center ">
-                                    <div class="p-1">
-                                        <a href="#" class="link-primary">Lihat daftar lagu</a>
-                                    </div>
-                                    <div class="p-1">
-                                        <a href="#" class="link-primary">Tambah lagu</a>
-                                    </div>
-                                    <div class="p-1">
-                                        <a href="#" class="link-danger">Hapus</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Organic global standardization</td>
-                            <td>Lawrence and Sons</td>
-                            <td>8</td>
-                            <td>721 menit</td>
-                            <td>
-                                <div class="text-center ">
-                                    <div class="p-1">
-                                        <a href="#" class="link-primary">Lihat daftar lagu</a>
-                                    </div>
-                                    <div class="p-1">
-                                        <a href="#" class="link-primary">Tambah lagu</a>
-                                    </div>
-                                    <div class="p-1">
-                                        <a href="#" class="link-danger">Hapus</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Universal encompassing challenge</td>
-                            <td>Carson Inc</td>
-                            <td>13</td>
-                            <td>1378 menit</td>
-                            <td>
-                                <div class="text-center ">
-                                    <div class="p-1">
-                                        <a href="#" class="link-primary">Lihat daftar lagu</a>
-                                    </div>
-                                    <div class="p-1">
-                                        <a href="#" class="link-primary">Tambah lagu</a>
-                                    </div>
-                                    <div class="p-1">
-                                        <a href="#" class="link-danger">Hapus</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    {% endblock %}
+{% endblock %}
