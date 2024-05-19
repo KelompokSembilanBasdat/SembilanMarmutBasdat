@@ -46,7 +46,7 @@
                     {% endif %}
                     {% if 'Artist' in request.session.roles or 'Songwriter' in request.session.roles %}
                     <li class="nav-item">
-                        {% comment %} <a class="nav-link" href="{% url 'kelola_album_song' %}">Kelola Album & Songs</a> {% endcomment %}
+                        <a class="nav-link" href="{% url 'kelola_album_song' %}">Kelola Album & Songs</a>
                     </li>
                     {% endif %}
                     {% if 'Label' in request.session.roles %}
@@ -56,7 +56,7 @@
                     {% endif %}
                     {% if 'Artist' in request.session.roles or 'Songwriter' in request.session.roles or 'Label' in request.session.roles %}
                     <li class="nav-item">
-                        {% comment %} <a class="nav-link" href="{% url 'cek_royalti' %}">Cek Royalti</a> {% endcomment %}
+                        <a class="nav-link" href="{% url 'cek_royalti' %}">Cek Royalti</a>
                     </li>
                     {% endif %}
                 </ul>
