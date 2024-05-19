@@ -7,15 +7,15 @@
 
 {% block content %}
 <div class="bg-gradient-to-bl from-green-500 to-blue-500 min-h-screen flex items-center justify-center py-20">
-    <div class="w-full max-w-2xl bg-gray-900/80 rounded-3xl shadow-xl p-10">
+    <div class="w-full max-w-2xl bg-gray-800 rounded-3xl shadow-xl p-10">
         <h2 class="text-5xl text-yellow-400 font-bold text-center mb-10">Tambah Lagu ke Playlist</h2>
         <form method="post" action="{% url 'user_playlist:tambah_lagu' id_user_playlist %}" class="space-y-8">
             {% csrf_token %}
             <div>
-                <label for="songDropdown" class="block text-yellow-200 text-lg mb-4">Pilih Lagu:</label>
-                <select id="songDropdown" name="id_song" class="w-full p-4 rounded-lg text-gray-900 bg-yellow-200">
+                <label for="songDropdown" class="block text-yellow-300 text-lg mb-4">Pilih Lagu:</label>
+                <select id="songDropdown" name="id_song" class="w-full p-4 rounded-lg text-gray-800 bg-yellow-300">
                     {% for song in song_choices %}
-                    <option value="{{ song.0 }}">{{ song.1 }}</option>
+                    <option value="{{ song.0 }}" class="text-gray-900">{{ song.1 }}</option>
                     {% endfor %}
                 </select>
             </div>
