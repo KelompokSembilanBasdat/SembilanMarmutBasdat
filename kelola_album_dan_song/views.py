@@ -415,6 +415,10 @@ def get_genres():
 
 def get_half(list):
     """Get the midpoint of a list"""
-    half = len(list) // 2
+    lenght = len(list)
+    if (lenght%2 == 0):
+        half = len(list) // 2
+    else:
+         half = len(list) // 2 + 1
 
     return half
