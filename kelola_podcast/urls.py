@@ -1,7 +1,9 @@
 from django.urls import path
-from kelola_podcast.views import *
+from . import views
 
 urlpatterns = [
-    path('podcast-episode-management/', podcast_management, name='podcast_management'),
-    path('podcast-management/', podcast_episode_management, name='podcast_episode_management'),
+    path('podcasts/', views.podcast_management, name='podcast_management'),
+    path('podcastEpisode/<uuid:podcast_id>/', views.podcast_episode_management, name='podcast_episode_management'),
+    path('deletePodcasts/<uuid:podcast_id>/', views.delete_podcast, name='delete_podcast'),
+    path('deleteEpisodes/<uuid:episode_id>/', views.delete_episode, name='delete_episode'),
 ]

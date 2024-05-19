@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .Title {
+        text-align: center;
+        margin-top: 50px;
+    }
+    h1 {
+        font-weight: normal;
+    }
+    h2 {
+        margin-top: 20px;
+    }
+    .input-box {
+        margin-top: 0; 
+        width: 300px;
+        height: 30px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+    .select-box {
+        margin-top: 0;
+        width: 300px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+        background-color: white; 
+    }
+    .submit-button {
+        margin-top: 0;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        background-color: blue;
+        color: white;
+        cursor: pointer;
+    }
+    .Create {
+        margin-top: 0;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: white;
+    }
+
+    .button {
+        background-color: blue;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    a.hapus {
+        color: red;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            <th style="text-align: center" colspan="4">LIST PODCAST</th>
+        </tr>
+        <tr>
+            <th style="text-align: center">Judul</th>
+            <th style="text-align: center">Jumlah Episode</th>
+            <th style="text-align: center">Total Durasi</th>
+            <th style="text-align: center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for podcast in podcast_list %}
+        <tr>
+            <td>{{ podcast.judul }}</td>
+            <td>{{ podcast.jumlah_episode }}</td>
+            <td>{{ podcast.total_durasi }} menit</td>
+            <td>
+                <a href="{% url 'play_podcast' podcast.id %}">Play Podcast</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

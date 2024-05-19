@@ -1,151 +1,76 @@
+{% extends 'base.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <title>Play Podcast</title>
-</head>
 
+{% block css %}
 <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .Title {
-            text-align: center;
-            margin-top: 50px;
-        }
-        h1 {
-            font-weight: normal;
-        }
-        h2 {
-            margin-top: 20px;
-        }
-        .input-box {
-            margin-top: 0; 
-            width: 300px;
-            height: 30px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-        .select-box {
-            margin-top: 0;
-            width: 300px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            box-sizing: border-box;
-            background-color: white; 
-        }
-        
-        .Play {
-            margin-top: 0;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th, td {
-            border: 1px solid black;
-            text-align: left;
-            padding: 8px;
-        }
-
-        th {
-            background-color: white;
-        }
-
-        .back-button {
-            background-color: blue;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        a.hapus {
-            color: red;
-        }
-
-        .button-wrapper {
-            display: flex;
-            justify-content: center; 
-            margin-top: 20px;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .Title {
+        text-align: center;
+        margin-top: 50px;
+    }
+    h1 {
+        font-weight: normal;
+    }
+    h2 {
+        margin-top: 20px;
+    }
+    .input-box, .select-box {
+        width: 300px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid black;
+        text-align: left;
+        padding: 8px;
+    }
+    th {
+        background-color: white;
+    }
+    .back-button {
+        background-color: blue;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .button-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
 </style>
+{% endblock %}
 
+{% block content %}
+</head>
 <body>
-    <!-- navbar starts -->
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Marmut - 9</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!-- add/delete as needed -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Chart</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"> Kelola Playlist</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Langganan Paket</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Kelola Album & Songs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Cek Royalti</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Lihat Chart</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Play Podcast</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Kelola Podcast</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Logout</a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-    <!-- navbar ends -->
-
     <div class="position-relative overflow-hidden p-1 p-md-3 m-md-3 text-center bg-body-tertiary">
         <div class="col-md-12 p-lg-2 mx-auto my-5">
             <h1 class="display-4 fw-bold">Podcast Detail</h1>
@@ -153,24 +78,24 @@
     </div>
 
     <div class="Detail">
-        <p style="margin-bottom: 0;">Commercial country expert huge</p>
+        <p style="margin-bottom: 0;">{{ podcast.judul }}</p>
         <p style="margin: 0; padding-top: 0;">Genre(s):</p>
-        <p style="margin: 0; padding-top: 0;">- Comedy</p>
+        {% for genre in podcast.genres %}
+        <p style="margin: 0; padding-top: 0;">- {{ genre }}</p>
+        {% endfor %}
         <p style="margin: 0; padding-top: 0;">Podcaster:</p>
-        <p style="margin: 0; padding-top: 0;">- Nicholas Garcia</p>
-        <p style="margin: 0; padding-top: 0;">- Heather Foster</p>
-        <p style="margin: 0; padding-top: 0;">Total Durasi: 3 jam 0 menit</p>
-        <p style="margin: 0; padding-top: 0;">Tanggal Rilis: 01/04/2022</p>
-        <p style="margin: 0; padding-top: 0;">Tahun: 2022</p>
+        <p style="margin: 0; padding-top: 0;">- {{ podcast.podcaster }}</p>
+        <p style="margin: 0; padding-top: 0;">Total Durasi: {{ podcast.total_durasi }}</p>
+        <p style="margin: 0; padding-top: 0;">Tanggal Rilis: {{ podcast.tanggal_rilis }}</p>
+        <p style="margin: 0; padding-top: 0;">Tahun: {{ podcast.tahun_rilis }}</p>
     </div>
 
     <div class="button-wrapper">
-        <button class="back-button">Kembali</button>
+        <a href="javascript:history.back()" class="back-button">Kembali</a>
     </div>
 
     <br>
     <br>
-
 
     <table>
         <thead>
@@ -185,19 +110,16 @@
             </tr>
         </thead>
         <tbody>
+            {% for episode in episodes %}
             <tr>
-                <td>Some Experience</td>
-                <td>Write yes good successful board. End institution market ago. She program yard large sport poor show</td>
-                <td>2 jam 25 menit</td>
-                <td>23/04/2024</td>
+                <td>{{ episode.judul }}</td>
+                <td>{{ episode.deskripsi }}</td>
+                <td>{{ episode.durasi }}</td>
+                <td>{{ episode.tanggal_rilis }}</td>
             </tr>
-            <tr>
-                <td>Small poor</td>
-                <td>Learn industry stop control including cultural score positive. Up century task son. Economy individual dinner herself. None that arrive crime.</td>
-                <td>2 jam 7 menit</td>
-                <td>22/04/2024</td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </body>
 </html>
+{% endblock %}

@@ -1,0 +1,51 @@
+CREATE OR REPLACE FUNCTION update_total_play() RETURNS TRIGGER AS
+$$
+BEGIN
+    IF (TG_OP = 'INSERT') THEN
+        -- Jika operasi adalah INSERT (lagu ditambahkan ke playlist)
+        UPDATE song
+        SET total_play = total_play + 1
+        WHERE id_konten = NEW.id_song;
+        
+        RETURN NEW;
+    ELSIF (TG_OP = 'DELETE') THEN 
+        -- Jika operasi adalah DELETE (lagu dihapus dari playlist)
+        UPDATE song
+        SET total_play = total_play - 1
+        WHERE id_konten = OLD.id_song;
+
+        RETURN OLD;
+    END IF;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION update_total_download() RETURNS TRIGGER AS
+$$
+BEGIN
+    IF (TG_OP = 'INSERT') THEN
+        -- Jika operasi adalah INSERT (pengguna mengunduh lagu)
+        UPDATE song
+        SET total_download = total_download + 1
+        WHERE id_konten = NEW.id_song;
+
+        RETURN NEW;
+    ELSIF (TG_OP = 'DELETE') THEN 
+        -- Jika operasi adalah DELETE (pengguna menghapus unduhan lagu)
+        UPDATE song
+        SET total_download = total_download - 1
+        WHERE id_konten = OLD.id_song;
+
+        RETURN OLD;
+    END IF;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER update_total_play_trigger
+AFTER INSERT OR DELETE ON playlist_song
+FOR EACH ROW EXECUTE FUNCTION update_total_play();
+
+CREATE TRIGGER update_total_download_trigger
+AFTER INSERT OR DELETE ON downloaded_song
+FOR EACH ROW EXECUTE FUNCTION update_total_download();

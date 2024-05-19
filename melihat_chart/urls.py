@@ -1,7 +1,7 @@
 from django.urls import path
-from melihat_chart.views import *
+from . import views
 
 urlpatterns = [
-    path('chart/', chart, name='chart'),
-    path('chart-detail/', chart_detail, name='chart_detail')
+    path('charts/', views.daftar_chart, name='daftar_chart'),
+    path('chart/<str:chart_type>/', views.detail_chart, name='detail_chart'),
 ]

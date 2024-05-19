@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,6 +15,7 @@
     <title>Podcast Episode Management</title>
 </head>
 
+{% block css %}
 <style>
         body {
             font-family: Arial, sans-serif;
@@ -96,84 +99,36 @@
             color: red;
         }
 </style>
+{% endblock %}
 
+{% block content %}
 <body>
-    <!-- navbar starts -->
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Marmut - 9</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!-- add/delete as needed -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Chart</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"> Kelola Playlist</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Langganan Paket</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Kelola Album & Songs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Cek Royalti</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Lihat Chart</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Play Podcast</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Kelola Podcast</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Logout</a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-    <!-- navbar ends -->
-
     <div class="Title">
-        <h1><strong>KELOLA PODCAST</strong></h1>
+        <h1><strong>KELOLA EPISODE PODCAST</strong></h1>
     </div>
     <div class="Create">
         <h2>Create Episode</h2>
-        <p style="margin-bottom: 0;">Podcast: Podcast1</p>
-        <p style="margin: 0; padding-top: 0;">Judul</p>
-        <input type="text" class="input-box" placeholder="Masukkan judul episode">
-        <p style="margin: 0; padding-top: 0;">Deskripsi</p>
-        <input type="text" class="input-box" placeholder="Masukkan deskripsi">
-        <p style="margin: 0; padding-top: 0;">Durasi</p>
-        <input type="text" class="input-box" placeholder="Masukkan durasi episode">
-        <br>
-        <button class="submit-button">Submit</button>
+        <form method="post" action="{% url 'podcast_episode_management' podcast_data.id %}">
+            {% csrf_token %}
+            <p style="margin-bottom: 0;">Podcast: {{ podcast_data.judul }}</p>
+            <p style="margin: 0; padding-top: 0;">Judul</p>
+            <input type="text" name="title" class="input-box" placeholder="Masukkan judul episode">
+            <p style="margin: 0; padding-top: 0;">Deskripsi</p>
+            <input type="text" name="description" class="input-box" placeholder="Masukkan deskripsi">
+            <p style="margin: 0; padding-top: 0;">Durasi (menit)</p>
+            <input type="number" name="duration" class="input-box" placeholder="Masukkan durasi dalam menit">
+            <br>
+            <button class="submit-button" type="submit">Submit</button>
+        </form>
     </div>
 
     <br>
     <br>
-
 
     <table>
         <thead>
             <tr>
-                <th style="text-align: center" colspan="5">DAFTAR EPISODE PADA PODCAST1</th>
+                <th style="text-align: center" colspan="5">DAFTAR EPISODE PADA {{ podcast_data.judul }}</th>
             </tr>
             <tr>
                 <th style="text-align: center">Judul</th>
@@ -184,25 +139,22 @@
             </tr>
         </thead>
         <tbody>
+            {% for episode in episodes %}
             <tr>
-                <td>Some Experience</td>
-                <td>Write yes good successful board. End institution market ago. She program yard large sport poor show</td>
-                <td>2 jam 25 menit</td>
-                <td>23/04/2024</td>
+                <td>{{ episode.judul }}</td>
+                <td>{{ episode.dekripsi }}</td>
+                <td>{{ episode.durasi }} menit</td>
+                <td>{{ episode.tanggal_rilis }}</td>
                 <td>
-                    <a href="#" class="hapus">Hapus</a>
+                    <form method="post" action="{% url 'delete_episode' episode.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="hapus" style="background-color: red;">Hapus</button>
+                    </form>
                 </td>
             </tr>
-            <tr>
-                <td>Small poor</td>
-                <td>Learn industry stop control including cultural score positive. Up century task son. Economy individual dinner herself. None that arrive crime.</td>
-                <td>2 jam 7 menit</td>
-                <td>22/04/2024</td>
-                <td>
-                    <a href="#" class="hapus">Hapus</a>
-                </td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </body>
 </html>
+{% endblock %}

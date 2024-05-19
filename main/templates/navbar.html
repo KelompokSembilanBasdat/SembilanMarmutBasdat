@@ -22,7 +22,7 @@
                     </li>
                     {% if 'Pengguna Biasa' in request.session.roles or 'Artist' in request.session.roles or 'Songwriter' in request.session.roles or 'Podcaster' in request.session.roles %}
                     <li class="nav-item">
-                        {% comment %} <a class="nav-link" href="{% url 'melihat_chart' %}">Chart</a> {% endcomment %}
+                        <a class="nav-link" href="{% url 'daftar_chart' %}">Chart</a> 
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'search_bar' %}">Search Bar</a>
@@ -33,6 +33,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'show_paket' %}">Langganan Paket</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'podcast_list' %}">Play Podcast</a>
+                    </li>
                     {% endif %}
                     {% if request.session.is_premium %}
                     <li class="nav-item">
@@ -41,7 +44,7 @@
                     {% endif %}
                     {% if 'Podcaster' in request.session.roles %}
                     <li class="nav-item">
-                        {% comment %} <a class="nav-link" href="{% url 'kelola_podcast' %}">Kelola Podcast</a> {% endcomment %}
+                        <a class="nav-link" href="{% url 'podcast_management' %}">Kelola Podcast</a>
                     </li>
                     {% endif %}
                     {% if 'Artist' in request.session.roles or 'Songwriter' in request.session.roles %}
