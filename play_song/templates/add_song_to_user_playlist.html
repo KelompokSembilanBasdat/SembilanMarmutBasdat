@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Tambah Lagu ke Playlist Anda</title>
+{% endblock meta %}
+
+{% block content %}
+{% include "navbar/navbar_pengguna.html" %}
+<div class="bg-gradient-to-bl from-red-400 to-purple-600 min-h-screen flex items-center justify-center py-20">
+    <div class="w-full max-w-2xl bg-gray-900 rounded-lg shadow-lg p-12 mx-auto">
+        <h2 class="text-4xl text-yellow-400 font-bold text-center mb-12">Tambahkan Lagu ke Playlist Anda</h2>
+        <div class="mb-10">
+            <p class="text-yellow-300 text-lg mb-4"><strong>Judul:</strong> {{ song_title }}</p>
+            <p class="text-yellow-300 text-lg mb-8"><strong>Artis:</strong> {{ artist }}</p>
+            <form method="POST" action="{% url 'play_song:add_song_to_user_playlist' id_konten=id_konten %}" class="space-y-8">
+                {% csrf_token %}
+                <label for="playlistDropdown" class="block text-yellow-300 text-lg mb-2">Pilih Playlist:</label>
+                <select id="playlistDropdown" name="id_user_playlist" class="w-full p-3 rounded-lg text-gray-900" required>
+                    {% for playlist in playlists %}
+                        <option value="{{ playlist.0 }}">{{ playlist.1 }}</option>
+                    {% endfor %}
+                </select>
+                <div class="flex justify-center space-x-8 mt-8">
+                    <a href="{% url 'play_song:play_song' id_konten=id_konten %}" class="border-2 border-yellow-400 text-yellow-400 rounded-xl py-2 px-6 hover:bg-yellow-400 hover:text-gray-900 transition duration-200">
+                        Kembali
+                    </a>
+                    <button type="submit" class="border-2 border-yellow-400 text-yellow-400 rounded-xl py-2 px-6 hover:bg-yellow-400 hover:text-gray-900 transition duration-200">
+                        Tambah
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Daftar Playlist Anda</title>
+{% endblock meta %}
+
+{% block content %}
+{% include "navbar/navbar_pengguna.html" %}
+<div class="bg-gradient-to-bl from-green-600 to-blue-600 min-h-screen py-20 flex items-center justify-center">
+    <div class="w-full max-w-6xl bg-gray-900 rounded-3xl shadow-2xl p-12">
+        <h1 class="text-5xl text-yellow-400 font-bold text-center mb-12">Kelola Playlist Anda</h1>
+        <div class="flex justify-center">
+            <div class="flex flex-col w-full">
+                {% if playlists %}
+                <div class="grid grid-cols-4 gap-8 bg-gray-800 text-yellow-200 shadow-inner border-yellow-400 rounded-2xl py-10 px-12 items-center">
+                    <p class="text-2xl text-yellow-400 font-bold text-center">Judul</p>
+                    <p class="text-2xl text-yellow-400 font-bold text-center">Jumlah Lagu</p>
+                    <p class="text-2xl text-yellow-400 font-bold text-center">Total Durasi</p>
+                    <p class="text-2xl text-yellow-400 font-bold text-center">Aksi</p>
+                    {% for playlist in playlists %}
+                    <div class="text-lg text-center">{{ playlist.judul }}</div>
+                    <div class="text-lg text-center">{{ playlist.jumlah_lagu }}</div>
+                    <div class="text-lg text-center">{{ playlist.total_durasi }} menit</div>
+                    <div class="flex space-x-4 justify-center">
+                        <a href="{% url 'user_playlist:detail_playlist' playlist.id %}" class="border-2 border-yellow-400 text-yellow-400 rounded-xl py-2 px-4 hover:bg-yellow-400 hover:text-gray-900 transition duration-200">Detail</a>
+                        <a href="{% url 'user_playlist:ubah_playlist' playlist.id %}" class="border-2 border-yellow-400 text-yellow-400 rounded-xl py-2 px-4 hover:bg-yellow-400 hover:text-gray-900 transition duration-200">Ubah</a>
+                        <a href="{% url 'user_playlist:hapus_playlist' playlist.id %}" class="border-2 border-red-500 text-red-500 rounded-xl py-2 px-4 hover:bg-red-500 hover:text-gray-900 transition duration-200">Hapus</a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-20">
+                    <p class="text-3xl text-yellow-400 font-bold">Anda Belum Memiliki Playlist</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="flex justify-center mt-12">
+            <a href="{% url 'user_playlist:tambah_playlist' %}" class="border-2 border-yellow-400 text-yellow-400 rounded-xl py-3 px-8 hover:bg-yellow-400 hover:text-gray-900 transition duration-200">Tambah Playlist</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}
