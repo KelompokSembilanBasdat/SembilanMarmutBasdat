@@ -72,13 +72,14 @@ def ubah_playlist(cursor: CursorWrapper, request, id_user_playlist):
     return render(request, 'ubah_playlist.html', {'playlist': {'id': id_user_playlist, 'judul': playlist[0], 'deskripsi': playlist[1]}})
 
 @connectdb
-def hapus_playlist(cursor: CursorWrapper, id_user_playlist):
+def hapus_playlist(cursor: CursorWrapper, request, id_user_playlist):
     cursor.execute("""
         DELETE FROM USER_PLAYLIST
         WHERE id_user_playlist = %s;
     """, [id_user_playlist])
 
     return HttpResponseRedirect(reverse('user_playlist:user_playlist'))
+
 
 @connectdb
 def detail_playlist(cursor: CursorWrapper, request, id_user_playlist):

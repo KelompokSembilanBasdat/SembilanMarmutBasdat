@@ -3,10 +3,7 @@ from django.db import connection
 
 def connectdb(func):
     @wraps(func)
-    def wrapper(*args, **kwargs):
-        res = ""
+    def wrapper(request, *args, **kwargs):
         with connection.cursor() as cursor:
-            res = func(cursor, *args, **kwargs)
-            
-        return res
+            return func(cursor, request, *args, **kwargs)
     return wrapper
