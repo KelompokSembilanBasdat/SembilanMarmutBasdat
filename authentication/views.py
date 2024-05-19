@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 import uuid
 import random
 from utils.db import data_from_db
@@ -8,6 +7,7 @@ from main.views import get_user_roles
 
 def login_view(request):
     if request.method == 'POST':
+
         email = request.POST['email']
         password = request.POST['password']
 
@@ -21,7 +21,6 @@ def login_view(request):
             cur.execute("SELECT * FROM label WHERE email=%s AND password=%s", (email, password))
             label = cur.fetchone()
             if label:
-                # Simpan informasi label dalam sesi
                 request.session['email'] = label[2]
                 request.session['roles'] = get_user_roles(label[2])
                 request.session['is_premium'] = False
@@ -35,10 +34,10 @@ def login_view(request):
             cur.close()
             conn.close()
             return redirect('dashboard')
-        
+ 
         cur.close()
         conn.close()
-        return HttpResponse('Invalid login')
+        return render(request, 'login.html', {'error_message':  'Password yang Anda masukan SALAH'})
 
     return render(request, 'login.html')
 

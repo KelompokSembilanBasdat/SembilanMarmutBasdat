@@ -20,6 +20,13 @@
         </form>
     </div>
 </div>
+
+{% if error_message %}
+<script>
+    alert("{{ error_message|escapejs }}");
+</script>
+{% endif %}
+
 {% endblock %}
 
 {% block css %}
