@@ -87,29 +87,6 @@
 {% endblock %}
 
 {% block content %}
-<div class="Title">
-    <h1><strong>KELOLA PODCAST</strong></h1>
-</div>
-<div class="Create">
-    <h2>Create Podcast</h2>
-    <form method="POST" action="{% url 'podcast_management' %}">
-        {% csrf_token %}
-        <p style="margin-bottom: 0;">Judul</p>
-        <input type="text" name="title" class="input-box" placeholder="Masukkan judul podcast" required>
-        <p style="margin: 0; padding-top: 0;">Genre</p>
-        <select name="genre" class="select-box" required multiple>
-            <option value="genre1">Comedy</option>
-            <option value="genre2">Horror</option>
-            <option value="genre3">Motivation</option>
-        </select>
-        <br>
-        <button type="submit" class="submit-button">Submit</button>
-    </form>
-</div>
-
-<br>
-<br>
-
 <table>
     <thead>
         <tr>
@@ -129,14 +106,7 @@
             <td>{{ podcast.jumlah_episode }}</td>
             <td>{{ podcast.total_durasi }} menit</td>
             <td>
-                <a href="#">Lihat Daftar Episode</a>
-                <br>
-                <a href="#">Tambah Episode</a>
-                <br>
-                <form method="POST" action="#" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="hapus" style="background:none; border:none; color:red; cursor:pointer;">Hapus</button>
-                </form>
+                <a href="{% url 'play_podcast' podcast.id %}">Play Podcast</a>
             </td>
         </tr>
         {% endfor %}

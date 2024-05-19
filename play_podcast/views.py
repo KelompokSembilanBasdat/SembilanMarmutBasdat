@@ -9,15 +9,14 @@ def get_podcast_details(podcast_id):
 
     # Query untuk mendapatkan detail podcast berdasarkan ID
     cur.execute("""
-        SELECT KONTEN.judul, KONTEN.tahun, PODCASTER.nama, SUM(EPISODE.durasi) AS total_durasi,
-               KONTEN.tanggal_rilis, ARRAY_AGG(GENRE.genre) AS genres
-        FROM PODCAST
-        JOIN KONTEN ON PODCAST.id_konten = KONTEN.id
-        JOIN PODCASTER ON PODCAST.email_podcaster = PODCASTER.email
-        JOIN GENRE ON KONTEN.id = GENRE.id_konten
-        JOIN EPISODE ON PODCAST.id_konten = EPISODE.id_konten_podcast
-        WHERE PODCAST.id_konten = %s
-        GROUP BY KONTEN.judul, KONTEN.tahun, PODCASTER.nama, KONTEN.tanggal_rilis
+        SELECT K.judul, array_agg(G.genre), A.nama, K.durasi, K.tanggal_rilis, K.tahun
+            FROM KONTEN K
+            JOIN PODCAST P ON K.id = P.id_konten
+            JOIN PODCASTER Po ON P.email_podcaster = Po.email
+            JOIN AKUN A ON Po.email = A.email
+            JOIN GENRE G ON K.id = G.id_konten
+            WHERE K.id = %s
+            GROUP BY K.judul, A.nama, K.durasi, K.tanggal_rilis, K.tahun
     """, (podcast_id,))
     podcast_details = cur.fetchone()
 
@@ -35,6 +34,7 @@ def get_episode_list(podcast_id):
         SELECT judul, deskripsi, durasi, tanggal_rilis
         FROM EPISODE
         WHERE id_konten_podcast = %s
+        ORDER BY tanggal_rilis DESC
     """, (podcast_id,))
     episode_list = cur.fetchall()
 
@@ -57,11 +57,12 @@ def play_podcast(request, podcast_id):
 
     podcast_data = {
         'judul': podcast_details[0],
-        'tahun': podcast_details[1],
+        'genres': podcast_details[1],
         'podcaster': podcast_details[2],
         'total_durasi': format_duration(podcast_details[3]),
         'tanggal_rilis': podcast_details[4],
-        'genres': podcast_details[5]
+        #'tahun_rilis': podcast_details[5] Karena data di database terlalu random saya tidak gunakan ini
+        'tahun_rilis' : podcast_details[4].year
     }
 
     episodes = [
@@ -74,3 +75,32 @@ def play_podcast(request, podcast_id):
     ]
 
     return render(request, 'PlayPodcast.html', {'podcast': podcast_data, 'episodes': episodes})
+
+def podcast_list(request):
+    con = data_from_db()
+    cur = con.cursor()
+
+    cur.execute("""
+        SELECT K.id, K.judul, COUNT(E.id_episode) AS jumlah_episode, COALESCE(SUM(E.durasi), 0) AS total_durasi
+        FROM KONTEN K
+        JOIN PODCAST P ON K.id = P.id_konten
+        LEFT JOIN EPISODE E ON K.id = E.id_konten_podcast
+        GROUP BY K.id, K.judul;
+    """)
+    
+    podcast_list = cur.fetchall()
+
+    podcast_list = [
+        {
+            'id': row[0],              
+            'judul': row[1],
+            'jumlah_episode': row[2],
+            'total_durasi': row[3]
+        }
+        for row in podcast_list
+    ]
+
+    cur.close()
+    con.close()
+
+    return render(request, 'PodcastList.html', {'podcast_list': podcast_list})

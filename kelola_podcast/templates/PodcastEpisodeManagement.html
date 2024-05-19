@@ -15,6 +15,7 @@
     <title>Podcast Episode Management</title>
 </head>
 
+{% block css %}
 <style>
         body {
             font-family: Arial, sans-serif;
@@ -98,7 +99,9 @@
             color: red;
         }
 </style>
+{% endblock %}
 
+{% block content %}
 <body>
     <div class="Title">
         <h1><strong>KELOLA EPISODE PODCAST</strong></h1>
@@ -154,3 +157,4 @@
     </table>
 </body>
 </html>
+{% endblock %}

@@ -2,8 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('podcasts/', views.podcast_list, name='podcast_management'),
-    path('podcasts/create/', views.create_podcast, name='create_podcast'),
+    path('podcasts/', views.podcast_management, name='podcast_management'),
     path('podcasts/<int:podcast_id>/', views.view_podcast, name='view_podcast'),
     path('podcasts/<int:podcast_id>/delete/', views.delete_podcast, name='delete_podcast'),
     path('podcasts/<int:podcast_id>/episodes/', views.view_episode, name='view_episode'),
