@@ -1,6 +1,7 @@
 from django.urls import path
-from downloaded_song.views import show_downloaded_song
+from .views import downloaded_songs_view, delete_downloaded_song
 
 urlpatterns = [
-    path('', show_downloaded_song, name='show_downloaded_song'),
+    path('', downloaded_songs_view, name='downloaded_songs'),
+    path('delete/<uuid:id_song>/', delete_downloaded_song, name='delete_downloaded_song'),
 ]

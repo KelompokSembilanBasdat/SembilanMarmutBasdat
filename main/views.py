@@ -32,10 +32,13 @@ def dashboard_view(request):
     if is_label:
         request.session['is_premium'] = None  # Anggap label tidak premium
     else:
-        request.session['is_premium'] = user[7]  # Set nilai is_premium dari tabel akun
+        # Set nilai is_premium berdasarkan tabel premium
+        cur.execute("SELECT * FROM premium WHERE email=%s", (email,))
+        premium_user = cur.fetchone()
+        request.session['is_premium'] = True if premium_user else False
 
-    # Status langganan Premium hanya jika pengguna memiliki peran dan bukan label
-    is_premium = None if is_label else (request.session['is_premium'] and roles != ['Pengguna Biasa'])
+    # Status langganan Premium hanya jika pengguna memiliki entri di tabel premium dan bukan label
+    is_premium = None if is_label else request.session['is_premium']
 
     context = {
         'name': user[2] if not is_label else user[1],
