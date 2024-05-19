@@ -74,7 +74,7 @@
                             <td>
                                 <div class="text-center">
                                     <div class="p-1">
-                                        <a href="#" class="link-primary">Lihat Detail</a>
+                                        <a href="{% url 'play_song:play_song' id_konten=id_song %}" class="link-primary">Lihat Detail</a>
                                     </div>
                                     <div class="p-1">
                                         <a href="{% url 'delete_song' id_album id_song %}" class="link-danger">Hapus</a>
