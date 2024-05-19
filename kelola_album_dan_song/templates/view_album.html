@@ -3,6 +3,15 @@
 {% block title %}View Album{% endblock %}
 {% block css %}
 <style>
+    .back {
+    background-color: #42BCFF !important;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 20px;
+    color: white;
+    cursor: pointer;
+    }
+
     .tableFixHead {
         overflow: auto;
         height: 500px;
@@ -31,7 +40,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="position-relative overflow-hidden p-1 p-md-3 m-md-3 text-center bg-body-tertiary">
+<div class="position-relative overflow-hidden p-1 p-md-3 m-md-3 text-center bg-body-tertiary" >
         <div class="col-md-12 p-lg-2 mx-auto my-5">
             <h2 class="text-center">Daftar Lagu pada</h2>
             {% for t in title %}
@@ -39,7 +48,7 @@
             <h1 class="display-4 fw-bold">{{ raw }}</h1>
             {% endfor %}
             {% endfor %}
-            <a href="{% url 'kelola_album_song' %}" class="btn btn-secondary">Back</a>
+            <a href="{% url 'kelola_album_song' %}" class="btn btn-secondary back" >Back</a>
         </div>
     </div>
     <div class="container">
