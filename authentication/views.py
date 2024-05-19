@@ -6,6 +6,10 @@ from main.views import get_user_roles
 
 
 def login_view(request):
+    email = request.session.get('email')
+    if (email):
+        return redirect('dashboard')
+
     if request.method == 'POST':
 
         email = request.POST['email']
@@ -48,10 +52,17 @@ def logout_view(request):
 
 
 def regist_option_view(request):
+    email = request.session.get('email')
+    if (email):
+        return redirect('dashboard')
     return render(request, 'register_option.html')
 
 
 def register_pengguna_view(request):
+    email = request.session.get('email')
+    if (email):
+        return redirect('dashboard')
+    
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
@@ -123,6 +134,10 @@ def register_pengguna_view(request):
 
 
 def register_label_view(request):
+    email = request.session.get('email')
+    if (email):
+        return redirect('dashboard')
+
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
