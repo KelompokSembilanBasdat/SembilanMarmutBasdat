@@ -2,11 +2,34 @@
 
 {% block title %}Add Song{% endblock %}
 {% block css %}
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        background-color: #42BCFF;
+    }
+
+    .add-container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .submit {
+    background-color: #42BCFF;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 20px;
+    color: white;
+    cursor: pointer;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="py-4">
+<div class="container add-container">
+    <div class="py-4 mt-5">
         <div class="text-center">
             <h2>Create Lagu</h2>
             <div class="px-4" id="error-alert" style="display: none;"></div>
@@ -112,7 +135,7 @@
 
 
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary submit">Submit</button>
                         </div>
                     </form>
                 </div>

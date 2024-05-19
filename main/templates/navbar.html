@@ -54,7 +54,7 @@
                     {% endif %}
                     {% if 'Label' in request.session.roles %}
                     <li class="nav-item">
-                        {% comment %} <a class="nav-link" href="{% url 'kelola_album_song' %}">Kelola Album</a> {% endcomment %}
+                        <a class="nav-link" href="{% url 'kelola_album_song' %}">Kelola Album</a>
                     </li>
                     {% endif %}
                     {% if 'Artist' in request.session.roles or 'Songwriter' in request.session.roles or 'Label' in request.session.roles %}

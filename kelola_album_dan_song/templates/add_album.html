@@ -2,10 +2,32 @@
 
 {% block title %}Add Album{% endblock %}
 {% block css %}
-{% endblock %}
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        background-color: #42BCFF;
+    }
 
+    .add-container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .submit {
+    background-color: #42BCFF !important;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 20px;
+    color: white;
+    cursor: pointer;
+    }
+</style>
+{% endblock %}
 {% block content %}
-<div class="container">
+<div class="container add-container mt-5">
     <div class="py-4">
         <div class="text-center">
             <h2>Create Album</h2>
@@ -123,7 +145,7 @@
 
 
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary submit">Submit</button>
                         </div>
                     </form>
                 </div>
