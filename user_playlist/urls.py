@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (user_playlist, tambah_playlist, ubah_playlist, hapus_playlist, detail_playlist, 
                     tambah_lagu_playlist, hapus_lagu_playlist)
 
-app_name = 'user_playlist'
+app_name = 'user_playlist' 
 
 urlpatterns = [
     path('', user_playlist, name='user_playlist'),

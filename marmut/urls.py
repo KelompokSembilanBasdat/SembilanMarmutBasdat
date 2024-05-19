@@ -18,6 +18,6 @@ urlpatterns = [
     path('play-podcast/', include('play_podcast.urls')),
     path('play-song/', include('play_song.urls')),
     path('play-user-playlist/', include('play_user_playlist.urls')),
+    path('user-playlist/', include('user_playlist.urls')),
     path('searchbar/', include('searchbar.urls')),
-
 ]
