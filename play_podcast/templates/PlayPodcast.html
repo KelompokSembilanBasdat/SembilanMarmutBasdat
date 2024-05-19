@@ -12,6 +12,12 @@
 
 {% block css %}
 <style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        background-color: #42bcff;
+    }
+
     body {
         font-family: Arial, sans-serif;
         margin: 0;
@@ -65,6 +71,14 @@
         justify-content: center;
         margin-top: 20px;
     }
+
+    tbody {
+        background-color: white;
+    }
+
+    .Detail{
+        background-color: white;
+    }
 </style>
 {% endblock %}
 
@@ -110,14 +124,20 @@
             </tr>
         </thead>
         <tbody>
-            {% for episode in episodes %}
-            <tr>
-                <td>{{ episode.judul }}</td>
-                <td>{{ episode.deskripsi }}</td>
-                <td>{{ episode.durasi }}</td>
-                <td>{{ episode.tanggal_rilis }}</td>
-            </tr>
-            {% endfor %}
+            {% if episodes %}
+                {% for episode in episodes %}
+                <tr>
+                    <td>{{ episode.judul }}</td>
+                    <td>{{ episode.deskripsi }}</td>
+                    <td>{{ episode.durasi }}</td>
+                    <td>{{ episode.tanggal_rilis }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center;">Tidak ada episode untuk podcast ini</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 </body>

@@ -17,6 +17,12 @@
 
 {% block css %}
 <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            background-color: #42bcff;
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -98,10 +104,17 @@
         a.hapus {
             color: red;
         }
+
+        tbody {
+            background-color: white;
+        }
 </style>
 {% endblock %}
 
 {% block content %}
+<br>
+<br>
+
 <body>
     <div class="Title">
         <h1><strong>KELOLA EPISODE PODCAST</strong></h1>
@@ -139,20 +152,28 @@
             </tr>
         </thead>
         <tbody>
-            {% for episode in episodes %}
-            <tr>
-                <td>{{ episode.judul }}</td>
-                <td>{{ episode.dekripsi }}</td>
-                <td>{{ episode.durasi }} menit</td>
-                <td>{{ episode.tanggal_rilis }}</td>
-                <td>
-                    <form method="post" action="{% url 'delete_episode' episode.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="hapus" style="background-color: red;">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
+            {% if episodes %}
+
+                {% for episode in episodes %}
+                <tr>
+                    <td>{{ episode.judul }}</td>
+                    <td>{{ episode.dekripsi }}</td>
+                    <td>{{ episode.durasi }} menit</td>
+                    <td>{{ episode.tanggal_rilis }}</td>
+                    <td>
+                        <form method="post" action="{% url 'delete_episode' episode.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="hapus" style="background-color: red;">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                
+            {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center;">Tidak ada episode untuk podcast ini</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 </body>

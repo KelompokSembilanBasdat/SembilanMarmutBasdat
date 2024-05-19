@@ -16,6 +16,11 @@
 
 {% block css %}
 <style>
+        html {
+            height: 100%;
+            margin: 0;
+            background-color: #42bcff;
+        }
         table {
             border-collapse: collapse;
             width: 100%;
@@ -54,11 +59,11 @@
 
 {% block content %}
 <body>
-    <div class="position-relative overflow-hidden p-1 p-md-3 m-md-3 text-center bg-body-tertiary">
+    <div class="position-relative overflow-hidden p-1 p-md-3 m-md-3 text-center" style="background-color: #42bcff;">
         <div class="col-md-12 p-lg-2 mx-auto my-5">
-            <h1 class="display-4 fw-bold">Chart Detail</h1>
+            <h1 class="display-4 fw-bold">CHART LIST</h1>
         </div>
-    </div>
+    </div>    
 
     <table>
         <thead>
@@ -66,8 +71,10 @@
                 <td colspan="5">
                     <p style="text-align: center; color: black;">Tipe: Daily Top 20</p>
                     <div class="button-container">
-                        <button class="button blue-button">Kembali</button>
-                    </div>
+                        <a href="{% url 'daftar_chart' %}">
+                            <button class="button blue-button">Kembali</button>
+                        </a>
+                    </div>                    
                 </td>
             </tr>
             <tr>
@@ -82,15 +89,21 @@
             </tr>
         </thead>
         <tbody>
-            {% for song in lagu_list %}
-            <tr>
-                <td>{{ song.judul }}</td>
-                <td>{{ song.artist }}</td>
-                <td>{{ song.tanggal_rilis }}</td>
-                <td>{{ song.total_play }}</td>
-                <td><a href="#">Lihat</a></td>
-            </tr>
-            {% endfor %}
+            {% if lagu_list %}
+                {% for song in lagu_list %}
+                <tr>
+                    <td>{{ song.judul }}</td>
+                    <td>{{ song.artist }}</td>
+                    <td>{{ song.tanggal_rilis }}</td>
+                    <td>{{ song.total_play }}</td>
+                    <td><a href="#">Lihat</a></td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center;">Tidak ada lagu untuk chart ini</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 </body>
