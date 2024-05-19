@@ -141,3 +141,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 APPEND_SLASH = True
+
+CSRF_TRUSTED_ORIGINS = ['https://sembilanmarmutbasdat-production-90eb.up.railway.app']
