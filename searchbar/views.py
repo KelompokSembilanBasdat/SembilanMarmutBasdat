@@ -30,7 +30,7 @@ def search_bar(request):
         JOIN akun ON user_playlist.email_pembuat = akun.email
         WHERE user_playlist.judul ILIKE %s
 
-        ORDER BY Title ASC;
+        ORDER BY ContentType DESC, Title ASC;
         """
         data = query(search_query, (formatted_search, formatted_search, formatted_search))
         return JsonResponse({'results': data})

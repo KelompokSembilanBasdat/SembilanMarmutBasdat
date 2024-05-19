@@ -29,11 +29,11 @@
                 success: function(data) {
                     $('#results').empty();
                     if (data.results.length > 0) {
-                        var table = '<table><thead><tr><th>Tipe</th><th>Judul</th><th>Oleh</th><th>Actions</th></tr></thead><tbody>';
+                        var table = '<div class="table-wrapper"><table><thead><tr><th>Tipe</th><th>Judul</th><th>Oleh</th><th>Actions</th></tr></thead><tbody>';
                         data.results.forEach(function(result) {
-                            table += '<tr><td>' + result[1] + '</td><td>' + result[0] + '</td><td>' + result[2] + '</td><td><button class="detail-button" onclick="redirectToDetail(\'' + result[0] + '\')">Detail</button></td></tr>';
+                            table += '<tr><td>' + result[1] + '</td><td>' + result[0] + '</td><td>' + result[2] + '</td><td><button class="detail-button" onclick="redirectToDetail(\'' + result[0] + '\')" >Detail</button></td></tr>';
                         });
-                        table += '</tbody></table>';
+                        table += '</tbody></table></div>';
                         $('#results').append(table);
                     } else {
                         $('#results').append('<p>Maaf, pencarian untuk “' + query + '” tidak ditemukan.</p>');
@@ -106,6 +106,11 @@
 
     #search-form button:hover {
         background-color: #359FD9;
+    }
+
+    .table-wrapper {
+        max-height: 300px;
+        overflow-y: auto;
     }
 
     table {
