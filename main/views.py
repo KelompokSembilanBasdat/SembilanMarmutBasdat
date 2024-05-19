@@ -11,13 +11,11 @@ def dashboard_view(request):
     conn = data_from_db()
     cur = conn.cursor()
     
-    # Cek apakah pengguna ada di tabel akun
     cur.execute("SELECT * FROM akun WHERE email=%s", (email,))
     user = cur.fetchone()
     is_label = False
 
     if not user:
-        # Jika tidak ada di tabel akun, cek di tabel label
         cur.execute("SELECT * FROM label WHERE email=%s", (email,))
         user = cur.fetchone()
         is_label = True if user else False
@@ -25,19 +23,18 @@ def dashboard_view(request):
     if not user:
         cur.close()
         conn.close()
-        return HttpResponse('User not found')  # Pengguna tidak ditemukan di kedua tabel
+        return HttpResponse('User not found')
 
     roles = get_user_roles(email)
     request.session['roles'] = roles
     if is_label:
-        request.session['is_premium'] = None  # Anggap label tidak premium
+        request.session['is_premium'] = None
     else:
-        # Set nilai is_premium berdasarkan tabel premium
+
         cur.execute("SELECT * FROM premium WHERE email=%s", (email,))
         premium_user = cur.fetchone()
         request.session['is_premium'] = True if premium_user else False
 
-    # Status langganan Premium hanya jika pengguna memiliki entri di tabel premium dan bukan label
     is_premium = None if is_label else request.session['is_premium']
 
     context = {
@@ -67,7 +64,6 @@ def dashboard_view(request):
     conn.close()
 
     return render(request, 'dashboard.html', context)
-
 
 
 def get_user_roles(email):
