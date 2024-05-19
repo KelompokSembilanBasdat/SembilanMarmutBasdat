@@ -6,6 +6,9 @@
 {% endblock meta %}
 
 {% block content %}
+<br>
+<br>
+
 <div class="bg-gradient-to-bl from-green-400 to-blue-600 min-h-screen flex justify-center items-center py-20">
     <div class="w-full max-w-4xl bg-gray-900 rounded-lg shadow-lg p-12 mx-auto">
         <h1 class="text-5xl text-yellow-400 font-bold text-center mb-12">Detail Lengkap Lagu</h1>
@@ -45,7 +48,7 @@
                 {% if is_premium %}
                     <button type="submit" formaction="{% url 'play_song:download_song' id_konten=id_konten %}" class="border-2 border-yellow-400 text-yellow-400 rounded-lg py-2 px-6 hover:bg-yellow-400 hover:text-gray-900 transition duration-200 mb-4 md:mb-0">Unduh Lagu</button>
                 {% endif %}
-                <a href="{% url 'dashboard:dashboard_pengguna' %}" class="border-2 border-yellow-400 text-yellow-400 rounded-lg py-2 px-6 hover:bg-yellow-400 hover:text-gray-900 transition duration-200">Kembali ke Dashboard</a>
+                <a href="{% url 'dashboard' %}" class="border-2 border-yellow-400 text-yellow-400 rounded-lg py-2 px-6 hover:bg-yellow-400 hover:text-gray-900 transition duration-200">Kembali ke Dashboard</a>
             </div>
         </form>
     </div>
