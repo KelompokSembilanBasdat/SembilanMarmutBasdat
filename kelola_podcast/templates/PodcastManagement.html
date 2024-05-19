@@ -17,6 +17,12 @@
 
 {% block css %}
 <style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        background-color: #42bcff;
+    }
+
     body {
         font-family: Arial, sans-serif;
         margin: 0;
@@ -99,14 +105,16 @@
         color: red;
     }
 
-    .select-box option:checked::before {
-        content: '\2713'; /* Karakter unicode untuk tanda centang */
-        margin-right: 5px;
+    tbody {
+        background-color: white;
     }
 </style>
 {% endblock %}
 
 {% block content %}
+<br>
+<br>
+
 <div class="Title">
     <h1><strong>KELOLA PODCAST</strong></h1>
 </div>

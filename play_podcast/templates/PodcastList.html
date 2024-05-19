@@ -2,6 +2,12 @@
 
 {% block css %}
 <style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        background-color: #42bcff;
+    }
+
     body {
         font-family: Arial, sans-serif;
         margin: 0;
@@ -83,10 +89,39 @@
     a.hapus {
         color: red;
     }
+
+    .button {
+        background-color: blue;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        background-color: #42bcff;
+    }
+
+    tbody {
+        background-color: white;
+    }
 </style>
 {% endblock %}
 
 {% block content %}
+<br>
+<br>
+<br>
+<br>
+<body>
 <table>
     <thead>
         <tr>
@@ -112,4 +147,12 @@
         {% endfor %}
     </tbody>
 </table>
+
+<div class="button-container">
+    <a href="{% url 'dashboard' %}">
+        <button class="back button">Kembali</button>
+    </a>
+</div>
+
+</body>
 {% endblock %}
