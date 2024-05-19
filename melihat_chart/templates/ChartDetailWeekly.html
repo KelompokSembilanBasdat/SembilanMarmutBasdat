@@ -96,7 +96,7 @@
                     <td>{{ song.artist }}</td>
                     <td>{{ song.tanggal_rilis }}</td>
                     <td>{{ song.total_play }}</td>
-                    <td><a href="#">Lihat</a></td>
+                    <td><a href="{% url 'play_song:play_song' id_konten=song.id %}">Lihat</a></td>
                 </tr>
                 {% endfor %}
             {% else %}
