@@ -57,7 +57,8 @@ def dashboard_view(request):
     if 'Podcaster' in roles:
         context['podcasts'] = get_user_podcasts(user[0])
     if 'Label' in roles:
-        context['albums'] = get_user_albums(user[0])
+        print(user[0])
+        context['albums'] = get_user_albums(email)
         context['contact'] = user[4]
 
     cur.close()
@@ -144,7 +145,7 @@ def get_user_albums(user_email):
         SELECT a.judul 
         FROM album a
         JOIN label l ON a.id_label = l.id
-        WHERE l.email=%s::text
+        WHERE l.email=%s
     """, (user_email,))
     albums = cur.fetchall()
     cur.close()
