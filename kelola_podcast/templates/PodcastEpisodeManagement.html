@@ -108,9 +108,9 @@
     </div>
     <div class="Create">
         <h2>Create Episode</h2>
-        <form method="post" action="{% url 'add_episode' podcast.id %}">
+        <form method="post" action="{% url 'podcast_episode_management' podcast_data.id %}">
             {% csrf_token %}
-            <p style="margin-bottom: 0;">Podcast: {{ podcast.title }}</p>
+            <p style="margin-bottom: 0;">Podcast: {{ podcast_data.judul }}</p>
             <p style="margin: 0; padding-top: 0;">Judul</p>
             <input type="text" name="title" class="input-box" placeholder="Masukkan judul episode">
             <p style="margin: 0; padding-top: 0;">Deskripsi</p>
@@ -128,7 +128,7 @@
     <table>
         <thead>
             <tr>
-                <th style="text-align: center" colspan="5">DAFTAR EPISODE PADA {{ podcast.title }}</th>
+                <th style="text-align: center" colspan="5">DAFTAR EPISODE PADA {{ podcast_data.judul }}</th>
             </tr>
             <tr>
                 <th style="text-align: center">Judul</th>
@@ -141,14 +141,14 @@
         <tbody>
             {% for episode in episodes %}
             <tr>
-                <td>{{ episode.title }}</td>
-                <td>{{ episode.description }}</td>
-                <td>{{ episode.duration }} menit</td>
-                <td>{{ episode.created_at }}</td>
+                <td>{{ episode.judul }}</td>
+                <td>{{ episode.dekripsi }}</td>
+                <td>{{ episode.durasi }} menit</td>
+                <td>{{ episode.tanggal_rilis }}</td>
                 <td>
                     <form method="post" action="{% url 'delete_episode' episode.id %}">
                         {% csrf_token %}
-                        <button type="submit" class="hapus">Hapus</button>
+                        <button type="submit" class="hapus" style="background-color: red;">Hapus</button>
                     </form>
                 </td>
             </tr>

@@ -1,5 +1,20 @@
 {% extends 'base.html' %}
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <title>Podcast Management</title>
+</head>
+
 {% block css %}
 <style>
     body {
@@ -83,6 +98,11 @@
     a.hapus {
         color: red;
     }
+
+    .select-box option:checked::before {
+        content: '\2713'; /* Karakter unicode untuk tanda centang */
+        margin-right: 5px;
+    }
 </style>
 {% endblock %}
 
@@ -97,10 +117,10 @@
         <p style="margin-bottom: 0;">Judul</p>
         <input type="text" name="title" class="input-box" placeholder="Masukkan judul podcast" required>
         <p style="margin: 0; padding-top: 0;">Genre</p>
-        <select name="genre" class="select-box" required multiple>
-            <option value="genre1">Comedy</option>
-            <option value="genre2">Horror</option>
-            <option value="genre3">Motivation</option>
+        <select id="genre" name="genre" required multiple>
+            <option value="Comedy">Comedy</option>
+            <option value="Horror">Horror</option>
+            <option value="Motivation">Motivation</option>
         </select>
         <br>
         <button type="submit" class="submit-button">Submit</button>
@@ -129,11 +149,11 @@
             <td>{{ podcast.jumlah_episode }}</td>
             <td>{{ podcast.total_durasi }} menit</td>
             <td>
-                <a href="#">Lihat Daftar Episode</a>
+                <a href="{% url 'podcast_episode_management' podcast.id %}">Lihat Daftar Episode</a>
                 <br>
-                <a href="#">Tambah Episode</a>
+                <a href="{% url 'podcast_episode_management' podcast.id %}">Tambah Episode</a>
                 <br>
-                <form method="POST" action="#" style="display:inline;">
+                <form method="POST" action="{% url 'delete_podcast' podcast.id %}" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="hapus" style="background:none; border:none; color:red; cursor:pointer;">Hapus</button>
                 </form>
@@ -142,4 +162,27 @@
         {% endfor %}
     </tbody>
 </table>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const select = document.getElementById("genreSelect");
+        const options = select.getElementsByTagName("option");
+        
+        select.addEventListener("change", function () {
+            for (const option of options) {
+                const isSelected = option.selected;
+                const checkbox = option.getAttribute("data-checkbox");
+
+                if (isSelected && !checkbox) {
+                    option.setAttribute("data-checkbox", "true");
+                    option.selected = true;
+                } else if (!isSelected && checkbox) {
+                    option.removeAttribute("data-checkbox");
+                    option.selected = false;
+                }
+            }
+        });
+    });
+</script>
+
 {% endblock %}
