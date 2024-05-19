@@ -107,7 +107,7 @@
     padding: 50px;
     width: 100%;
     margin-bottom: -240px;
-    margin-top: 50px;
+    margin-top: 80px;
   }
   .dashboard-header h1 {
     margin: 0;
@@ -131,31 +131,42 @@
     gap: 20px;
     width: 60%;
     max-width: 1200px;
+    max-height: 400px;
   }
+
   .info-section {
     display: flex;
     flex-direction: column;
   }
+
   .info-section p {
     margin-bottom: 10px;
   }
+
   .list-section {
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    max-height: 300px;
+
   }
+
   .list-section p {
     text-align: center;
     margin-bottom: 10px;
   }
+
   .list-section h3 {
     text-align: center;
     margin-top: 0;
   }
+
   .list-section ul {
     text-align: center;
     list-style-type: none;
     padding: 0;
   }
+
   .list-section li {
     text-align: center;
     background-color: #e0f7ff;
@@ -163,6 +174,8 @@
     border-radius: 5px;
     margin-bottom: 10px;
     padding: 10px;
+    overflow: auto;
   }
+
 </style>
 {% endblock %}
