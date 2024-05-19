@@ -17,6 +17,7 @@
                 <td>{{ song.judul }}</td>
                 <td>{{ song.artist }}</td>
                 <td>
+                    <b >Lihat</b>
                     <a href="{% url 'delete_downloaded_song' id_song=song.id_konten %}">Hapus</a>
                 </td>
             </tr>
@@ -86,8 +87,16 @@
         background-color: #f1f1f1;
     }
 
-    a {
+    b {
         color: #42BCFF;
+    }
+
+    b:hover {
+        text-decoration: underline;
+    }
+
+    a {
+        color: red;
     }
 
     a:hover {

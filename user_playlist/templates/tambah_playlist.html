@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Tambah Playlist</title>
+{% endblock meta %}
+
+{% block content %}
+{% include "navbar/navbar_pengguna.html" %}
+<div class="bg-gradient-to-bl from-purple-600 to-red-600 min-h-screen flex items-center justify-center py-20">
+    <div class="w-full max-w-2xl bg-gray-900/80 rounded-3xl shadow-xl p-10">
+        <h1 class="text-5xl text-yellow-400 font-bold text-center mb-10">Tambah Playlist</h1>
+        <form class="space-y-8" method="post" action="{% url 'user_playlist:tambah_playlist' %}">
+            {% csrf_token %}
+            <div>
+                <label for="judul" class="block text-yellow-200 text-lg mb-2">Judul Playlist</label>
+                <input type="text" id="judul" name="judul" class="w-full p-4 rounded-lg text-black" placeholder="Masukkan judul playlist" required>
+            </div>
+            <div>
+                <label for="deskripsi" class="block text-yellow-200 text-lg mb-2">Deskripsi</label>
+                <textarea id="deskripsi" name="deskripsi" class="w-full p-4 rounded-lg text-black" rows="4" placeholder="Tulis deskripsi singkat playlist" required></textarea>
+            </div>
+            <div class="flex justify-center mt-12">
+                <button type="submit" class="w-1/2 py-4 bg-yellow-400 text-gray-900 font-bold rounded-xl hover:bg-yellow-500 transition duration-200">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

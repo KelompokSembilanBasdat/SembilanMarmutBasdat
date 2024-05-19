@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Detail Playlist</title>
+{% endblock meta %}
+
+{% block content %}
+{% include "navbar/navbar_pengguna.html" %}
+<div class="bg-gradient-to-bl from-teal-600 to-blue-600 min-h-screen py-20 flex items-center justify-center">
+    <div class="w-full max-w-4xl bg-gray-900/80 rounded-3xl shadow-xl p-10">
+        <h1 class="text-5xl text-yellow-400 font-bold text-center mb-10">Detail Playlist</h1>
+        <div class="flex justify-between items-start mb-10">
+            <div class="text-yellow-200 text-lg space-y-4">
+                <p><strong>Judul:</strong> {{ playlist.judul }}</p>
+                <p><strong>Pembuat:</strong> {{ playlist.pembuat }}</p>
+                <p><strong>Tanggal Dibuat:</strong> {{ playlist.tanggal_dibuat }}</p>
+                <p><strong>Jumlah Lagu:</strong> {{ playlist.jumlah_lagu }}</p>
+                <p><strong>Total Durasi:</strong> {{ playlist.total_durasi }} menit</p>
+                <p><strong>Deskripsi:</strong> {{ playlist.deskripsi }}</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="{% url 'play_user_playlist:play_user_playlist' id_user_playlist %}" class="border-2 border-yellow-400 text-yellow-400 rounded-xl py-3 px-8 hover:bg-yellow-400 hover:text-gray-900 transition duration-200">Putar Acak</a>
+                <a href="{% url 'user_playlist:user_playlist' %}" class="border-2 border-yellow-400 text-yellow-400 rounded-xl py-3 px-8 hover:bg-yellow-400 hover:text-gray-900 transition duration-200">Kembali</a>
+            </div>
+        </div>
+        <div>
+            {% if songs %}
+            <h4 class="text-4xl text-yellow-400 font-bold mb-8">Daftar Lagu</h4>
+            <div class="grid grid-cols-1 gap-8">
+                {% for song in songs %}
+                <div class="flex justify-between items-center bg-gray-800 text-yellow-200 shadow-inner border-yellow-400 rounded-3xl p-8">
+                    <div class="flex-1">
+                        <p class="text-2xl font-bold">{{ song.judul }}</p>
+                        <p class="text-lg">{{ song.nama }}</p>
+                        <p class="text-lg">{{ song.durasi }} menit</p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="{% url 'play_song:play_song' song.id %}" class="border-2 border-yellow-400 text-yellow-400 rounded-xl py-2 px-6 hover:bg-yellow-400 hover:text-gray-900 transition duration-200">Lihat</a>
+                        <a href="{% url 'play_song:play_song' song.id %}" class="border-2 border-yellow-400 text-yellow-400 rounded-xl py-2 px-6 hover:bg-yellow-400 hover:text-gray-900 transition duration-200">Putar</a>
+                        <a href="{% url 'user_playlist:hapus_lagu_playlist' id_user_playlist=id_user_playlist id_song=song.id %}" class="border-2 border-red-500 text-red-500 rounded-xl py-2 px-6 hover:bg-red-500 hover:text-gray-900 transition duration-200">Hapus</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="text-center py-20">
+                <p class="text-3xl text-yellow-400 font-bold">Belum ada lagu dalam playlist ini</p>
+            </div>
+            {% endif %}
+            <div class="flex justify-center mt-12">
+                <a href="{% url 'user_playlist:tambah_lagu_playlist' id_user_playlist=id_user_playlist %}" class="border-2 border-yellow-400 text-yellow-400 rounded-xl py-3 px-8 hover:bg-yellow-400 hover:text-gray-900 transition duration-200">Tambah Lagu</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
