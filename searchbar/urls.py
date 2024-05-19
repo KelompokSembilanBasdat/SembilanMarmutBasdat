@@ -1,5 +1,3 @@
-# searchbar/urls.py
-
 from django.urls import path
 from searchbar.views import search_bar
 

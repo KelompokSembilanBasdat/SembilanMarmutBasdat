@@ -1,32 +1,38 @@
 {% extends 'base.html' %}
 
-{% block title %}Kelola Downloaded Songs{% endblock %}
+{% block title %}Riwayat Transaksi{% endblock %}
 
 {% block content %}
 <div class="center-wrapper">
     <div class="container">
-        <h1>Downloaded Songs</h1>
+        <h1>Riwayat Transaksi Paket</h1>
         <table>
-            <tr>
-                <th>Judul Lagu</th>
-                <th>Oleh</th>
-                <th>Actions</th>
-            </tr>
-            {% for song in songs %}
-            <tr>
-                <td>{{ song.judul }}</td>
-                <td>{{ song.artist }}</td>
-                <td>
-                    <a href="{% url 'delete_downloaded_song' id_song=song.id_konten %}">Hapus</a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="3">No downloaded songs available.</td>
-            </tr>
-            {% endfor %}
+            <thead>
+                <tr>
+                    <th>Jenis</th>
+                    <th>Tanggal Dimulai</th>
+                    <th>Tanggal Berakhir</th>
+                    <th>Metode Pembayaran</th>
+                    <th>Nominal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaksi in transaksi_list %}
+                <tr>
+                    <td>{{ transaksi.jenis_paket }}</td>
+                    <td>{{ transaksi.timestamp_dimulai|date:"j F Y, H:i" }}</td>
+                    <td>{{ transaksi.timestamp_berakhir|date:"j F Y, H:i" }}</td>
+                    <td>{{ transaksi.metode_bayar }}</td>
+                    <td>Rp{{ transaksi.nominal }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No transactions found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
-        <a href="{% url 'dashboard' %}" class="back-link">Kembali</a>
+        <a href="{% url 'show_paket' %}" class="back-link">Kembali</a>
     </div>
 </div>
 {% endblock %}
@@ -56,7 +62,7 @@
         width: 100%;
         max-width: 800px;
     }
-    
+
     h1 {
         color: #42BCFF;
         text-align: center;
@@ -66,6 +72,7 @@
     table {
         width: 100%;
         border-collapse: collapse;
+        margin-bottom: 20px;
     }
 
     th, td {
@@ -77,21 +84,12 @@
     th {
         background-color: #f2f2f2;
     }
-
     tr:nth-child(even) {
         background-color: #f9f9f9;
     }
 
     tr:hover {
         background-color: #f1f1f1;
-    }
-
-    a {
-        color: #42BCFF;
-    }
-
-    a:hover {
-        text-decoration: underline;
     }
 
     .back-link {
@@ -107,6 +105,7 @@
         width: fit-content;
         margin: 30px auto 0;
     }
+
     .back-link:hover {
         background-color: #359FD9;
     }

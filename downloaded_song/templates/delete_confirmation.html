@@ -1,32 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}Kelola Downloaded Songs{% endblock %}
+{% block title %}Delete Confirmation{% endblock %}
 
 {% block content %}
 <div class="center-wrapper">
     <div class="container">
-        <h1>Downloaded Songs</h1>
-        <table>
-            <tr>
-                <th>Judul Lagu</th>
-                <th>Oleh</th>
-                <th>Actions</th>
-            </tr>
-            {% for song in songs %}
-            <tr>
-                <td>{{ song.judul }}</td>
-                <td>{{ song.artist }}</td>
-                <td>
-                    <a href="{% url 'delete_downloaded_song' id_song=song.id_konten %}">Hapus</a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="3">No downloaded songs available.</td>
-            </tr>
-            {% endfor %}
-        </table>
-        <a href="{% url 'dashboard' %}" class="back-link">Kembali</a>
+        <h1>Delete Confirmation</h1>
+        <p>Berhasil menghapus Lagu dengan judul '{{ judul_lagu }}' dari daftar unduhan!</p>
+        <a href="{% url 'downloaded_songs' %}" class="back-link">Kembali</a>
     </div>
 </div>
 {% endblock %}
@@ -44,7 +25,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        height: 70vh;
         padding: 10px;
     }
 
@@ -56,38 +37,16 @@
         width: 100%;
         max-width: 800px;
     }
-    
+
     h1 {
         color: #42BCFF;
         text-align: center;
         margin-bottom: 20px;
     }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: center;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-
-    tr:hover {
-        background-color: #f1f1f1;
-    }
-
     a {
         color: #42BCFF;
+        text-decoration: none;
     }
 
     a:hover {
@@ -107,6 +66,7 @@
         width: fit-content;
         margin: 30px auto 0;
     }
+    
     .back-link:hover {
         background-color: #359FD9;
     }
